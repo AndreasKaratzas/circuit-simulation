@@ -38,20 +38,12 @@ Simulate every input vector and report the corresponding logic responses at the 
 
 ## Todo:
 
-[-] `traverse_circuit()`
-
-[-] `cache_or_truth_table()`
-
-[-] `cache_and_truth_table()`
-
-[-] `cache_not_truth_table()`
-
-[-] `forward_propagate()`
-
-[-] `simulate_circuit()`
-
-[-] `load_circuit()`
-
-[-] `load_test_vector()`
-
-[-] `main()`
+- [ ] `traverse_circuit()`
+- [ ] `cache_or_truth_table()`
+- [ ] `cache_and_truth_table()`
+- [ ] `cache_not_truth_table()`
+- [ ] `forward_propagate()`
+- [ ] `simulate_circuit()`
+- [ ] `load_circuit()`
+- [ ] `load_test_vector()`
+- [ ] `main()`
