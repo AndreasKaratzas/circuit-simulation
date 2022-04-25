@@ -12,7 +12,7 @@ Implement a logic simulation tool in `C` language for combinational circuits. Lo
     * `0`: logic zero
     * `1`: logic one
     * `x`: don't care value. During simulation, the `x` is interpreted as `2`.
-3. `.fau`: This file contains information about the fault nodes and its struck at value of a particular circuit. Each line in this file is about the single stuck-at fault. Example:
+3. `.faults`: This file contains information about the fault nodes and its struck at value of a particular circuit. Each line in this file is about the single stuck-at fault. Example:
     * `3\1` &#8594; gate with the id `3` has struck-at the value `1`
 
 ### Exercises
@@ -37,7 +37,7 @@ Implement a logic simulation tool in `C` language for combinational circuits. Lo
 
 5. Apply the input pattern to the primary input of circuit and propagate these values to the primary output of the circuit.
 
-6. Write a function to read the `.fau` file and store the information in the `FAULT` structure.
+6. Write a function to read the `.faults` file and store the information in the `FAULT` structure.
 
 7. Take a single input vector in the `PATTERN` structure
 
@@ -71,12 +71,12 @@ Simulate every input vector and report the corresponding logic responses at the 
 - [ ] `simulate_circuit()`
 - [ ] `load_circuit()`
 - [ ] `load_test_vector()`
-- [ ] `read_fau_file()`
+- [ ] `read_faults_file()` : Ignore whitespace
 - [ ] `load_pattern()`
 - [ ] `load_fault()`
 - [ ] `trace_error()`
 - [ ] `test_circuit()`
 - [ ] `log_pattern_simulation()`
-- [ ] `log_fault_simulation()`
+- [ ] `log_faults_simulation()`
 - [ ] `store_results()`
 - [ ] `main()`
