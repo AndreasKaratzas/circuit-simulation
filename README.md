@@ -36,7 +36,7 @@ Simulate every input vector and report the corresponding logic responses at the 
 1. All the program code files.
 2. Generated result file for each combinational circuit (one file with input pattern and its output response). The output file contains all the information in the order exactly as the given .vec file.
 
-## Todo:
+## TODO
 
 - [ ] `traverse_circuit()`
 - [ ] `cache_or_truth_table()`
