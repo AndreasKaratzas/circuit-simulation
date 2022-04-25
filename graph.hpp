@@ -53,7 +53,7 @@ typedef struct NODE_type
 void insert_element(LIST **, int);
 void print_list(LIST *);
 void delete_element(LIST **);
-int read_isc_file(FILE *,NODE *);
+int read_isc_file(FILE *, NODE *);
 void initialize_circuit(NODE *, int);
 int map_logic_gate(char *);
 void print_circuit(NODE *, int);

@@ -12,6 +12,8 @@ Implement a logic simulation tool in `C` language for combinational circuits. Lo
     * `0`: logic zero
     * `1`: logic one
     * `x`: don't care value. During simulation, the `x` is interpreted as `2`.
+3. `.fau`: This file contains information about the fault nodes and its struck at value of a particular circuit. Each line in this file is about the single stuck-at fault. Example:
+    * `3\1` &#8594; gate with the id `3` has struck-at the value `1`
 
 ### Exercises
 
@@ -22,13 +24,36 @@ Implement a logic simulation tool in `C` language for combinational circuits. Lo
 2. Traverse the graph `G`. The nodes are already labeled in topological order. The focus will be to learn how to traverse a linked list for each node `V`.
 
 3. Create arrays to store the truth tables for the three basic functions:
-    * OR
     * AND
-    * NOT
+    * NAND
+    * OR
+    * NOR
+    * XOR
+    * XNOR
+    * INV
+    * BUFFER
 
 4. Determine the logic values at the output of node `V` after traversing the linked list of its predecessors.
 
 5. Apply the input pattern to the primary input of circuit and propagate these values to the primary output of the circuit.
+
+6. Write a function to read the `.fau` file and store the information in the `FAULT` structure.
+
+7. Take a single input vector in the `PATTERN` structure
+
+8. Apply the input pattern to the primary input of the circuit (`x` is mapped to `2`) and propagate these values to the primary output of the circuit. The response obtained at the primary outputs is called __fault free__ response of the circuit.
+
+9. Print the input vector, input vector after `x` has been mapped, and output response for each pattern in the output file.
+
+10. Build a single fault in the `FAULT` structure. Inject the faut in the particular node and propagate the faulty value to the primary output. The output response obtained after injecting the fault is called __faulty__ response of the circuit.
+
+11. Compare the __fault free__ and the __faulty__ response to identify whether the fault at particular node is identified by the given input pattern or not.
+
+12. Log whether the fault is detected or not in the output file.
+
+13. Repeat the steps 10 - 12 for each fault in the `FAULT` structure for the single input pattern. 
+
+14. Repeat steps 7 - 12 for each input vector in the `PATTERN` structure of the given circuit.
 
 ### Submission
 
@@ -38,12 +63,20 @@ Simulate every input vector and report the corresponding logic responses at the 
 
 ## TODO
 
+- [ ] create a `PATTERN` structure
+- [ ] create a `FAULT` structure
 - [ ] `traverse_circuit()`
-- [ ] `cache_or_truth_table()`
-- [ ] `cache_and_truth_table()`
-- [ ] `cache_not_truth_table()`
+- [ ] `cache_logic_gates()`
 - [ ] `forward_propagate()`
 - [ ] `simulate_circuit()`
 - [ ] `load_circuit()`
 - [ ] `load_test_vector()`
+- [ ] `read_fau_file()`
+- [ ] `load_pattern()`
+- [ ] `load_fault()`
+- [ ] `trace_error()`
+- [ ] `test_circuit()`
+- [ ] `log_pattern_simulation()`
+- [ ] `log_fault_simulation()`
+- [ ] `store_results()`
 - [ ] `main()`
