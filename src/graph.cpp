@@ -323,14 +323,23 @@ void print_circuit(NODE *graph, int num_of_nodes)
 {
     LIST *temp;
     int  address;
+    char title[] = "| ADDRESS\t | NAME\t | TYPE\t | PRIMARY OUTPUT #\t | INPUT #\t | OUTPUT #\t | CORRECT VALUE\t | FAULT VALUE\t | MARKER\t | FANIN\t | FANOUT |"
+    char msg[512];
 
-    printf("\nADDRESS\tNAME\tTYPE\tPRIMARY OUTPUT #\tINPUT #\tOUTPUT #\tCORRECT VALUE\tFAULT VALUE\tMARKER\tFANIN\tFANOUT\n");
+    sprintf(msg, "%0*d", strlen(title - 2), 0);
+    subst(msg, "0", "-");
+    prepend(msg, "+");
+    msg[strlen(title - 1)] = "+";
+
+    printf("%s\n", msg);
+    printf("\n%s\n", title);
+    printf("%s\n", msg);
 
     for(address = 0; address <= num_of_nodes; address += 1)
     {
         if(graph[address].type != 0)
         {
-            printf("%d\t%s\t%d\t%d\t\t\t%d\t%d\t\t", 
+            printf("| %d\t | %s\t | %d\t | %d\t\t\t | %d\t | %d\t\t | ", 
                 address, 
                 graph[address].name, 
                 graph[address].type, 
@@ -338,7 +347,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 graph[address].num_of_fan_ins, 
                 graph[address].num_of_fan_outs);
 
-            printf("%d\t\t%d\t\t%d\t", 
+            printf("%d\t\t | %d\t\t | %d\t |", 
                 graph[address].correct_value, 
                 graph[address].fault_value, 
                 graph[address].marker);
