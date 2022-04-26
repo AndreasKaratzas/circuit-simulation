@@ -59,6 +59,11 @@ typedef struct PATTERN_type
     int num_of_primary_inputs;
 } PATTERN;
 
+typedef struct PATTERN_bak_type
+{
+    char primary_input_vec[MAX_NUM_OF_PRIMARY_INPUTS];
+} PATTERN_bak;
+
 typedef struct FAULT_type
 {
     int target_node, target_value;

@@ -407,11 +407,13 @@ void delete_circuit(NODE *graph, int n_elements)
 /**
  * @brief Parses a VEC file into a vector of type PATTERN structure.
  *
- * @param vec_file the given VEC file
- * @param vector   the result vector PATTERN structure entity
- * @return int     the total primary inputs count
+ * @param vec_file   the given VEC file
+ * @param vector_bak the result vector PATTERN structure entity
+ * @return int       the total primary inputs count
+ *
+ * @deprecated This was the original version of `read_vec_file()`.
  */
-int read_vec_file_bak(FILE *vec_file, PATTERN *vector)
+int read_vec_file_bak(FILE *vec_file, PATTERN_bak *vector_bak)
 {
     int num_of_ins;
     char token[MAX_NUM_OF_PRIMARY_INPUTS];
@@ -425,8 +427,8 @@ int read_vec_file_bak(FILE *vec_file, PATTERN *vector)
 
         if(*token != '\0')
         {
-            bzero(vector[num_of_ins].primary_input_vec, MAX_NUM_OF_PRIMARY_INPUTS);
-            strcpy(vector[num_of_ins].primary_input_vec, token);
+            bzero(vector_bak[num_of_ins].primary_input_vec, MAX_NUM_OF_PRIMARY_INPUTS);
+            strcpy(vector_bak[num_of_ins].primary_input_vec, token);
             num_of_ins += 1;
         }
     }
