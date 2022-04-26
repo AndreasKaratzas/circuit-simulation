@@ -12,8 +12,6 @@
 #include <assert.h>
 #include <limits.h>
 
-#include "utils.hpp"
-
 #define MAX_FILENAME_SIZE                20
 #define MAX_NUM_OF_NODES              15000
 #define MAX_NUM_OF_CHARACTERS_IN_LINE   200
@@ -64,7 +62,7 @@ typedef struct FAULT_type
 } FAULT;
 
 void insert_element(LIST **, int);
-void print_list(LIST *);
+int print_list(LIST *);
 void delete_element(LIST **);
 int read_isc_file(FILE *, NODE *);
 void initialize_circuit(NODE *, int);

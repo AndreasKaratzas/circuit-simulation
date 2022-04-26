@@ -53,20 +53,28 @@ void insert_element(LIST **l, int x)
 /**
  * @brief Prints all elements of a LIST structure.
  *
- * @param l the given LIST structure
+ * @param l    the given LIST structure
+ * @return int the length of the string printed
  */
-void print_list(LIST *l)
+int print_list(LIST *l)
 {
     LIST *temp = NULL;
 
+    char str[10];
+    int  str_len;
+
     temp = l;
+    str_len = 0;
     while(temp != NULL)
     {
+        sprintf(str, "%d", temp->id);
+        str_len = str_len + strlen(str);
         printf("%d ", temp->id);
+        str_len += 1;
         temp = temp->next;
     }
 
-    return;
+    return (str_len);
 }
 
 /**
@@ -322,18 +330,19 @@ int map_logic_gate(char *type)
 void print_circuit(NODE *graph, int num_of_nodes)
 {
     LIST *temp;
-    int  address;
-    char title[] = "| ADDRESS |       NAME   |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                FANIN |              FANOUT |";
-    char msg[512];
+    int  address, _str_len;
+    char title[] = "| ADDRESS |       NAME   |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                                                               FANIN |                                                               FANOUT |";
+    char splitter[512];
+    char separator[512];
 
-    memset(msg, '-', strlen(title) - 1);
-    msg[0] = '+';    
-    msg[strlen(title) - 1] = '+';
-    msg[strlen(title)] = '\0';
+    memset(splitter, '-', strlen(title) - 1);
+    splitter[0] = '+';    
+    splitter[strlen(title) - 1] = '+';
+    splitter[strlen(title)] = '\0';
 
-    printf("%s\n", msg);
+    printf("%s\n", splitter);
     printf("%s\n", title);
-    printf("%s\n", msg);
+    printf("%s\n", splitter);
 
     for(address = 0; address <= num_of_nodes; address += 1)
     {
@@ -357,24 +366,26 @@ void print_circuit(NODE *graph, int num_of_nodes)
 
             if(temp != NULL)
             {
-                print_list(temp);
+                _str_len = print_list(temp);
             }
 
-            printf(" \t | ");
+            memset(separator, ' ', 64 + 5 - _str_len);
+            printf("%s | ", separator);
 
             temp = NULL;
             temp = graph[address].fanout;
 
             if(temp != NULL)
             {
-                print_list(temp);
+                _str_len = print_list(temp);
             }
 
-            printf(" |\n");
+            memset(separator, ' ', 64 + 6 - _str_len);
+            printf("%s |\n", separator);
         }
     }
     
-    printf("%s\n", msg);
+    printf("%s\n", splitter);
 
     return;
 }
