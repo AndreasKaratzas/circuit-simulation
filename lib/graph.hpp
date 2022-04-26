@@ -84,6 +84,6 @@ void not_handler(FILE *, NODE *, int, int);
 void from_handler(NODE *, char *, int, int);
 
 void map_pattern(char *, int *, int);
-void read_vec_file(FILE *, PATTERN *);
+int read_vec_file(FILE *, PATTERN *);
 void print_vectors(PATTERN *, int);
 void delete_vectors(PATTERN *, int);
