@@ -349,7 +349,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
     {
         if(graph[address].type != 0)
         {
-            printf("| %7d | %10s | %4d  | %16d | %7d | %8d | ", 
+            printf("| %7d | %11s | %4d  | %16d | %7d | %8d | ", 
                 address, 
                 graph[address].name, 
                 graph[address].type, 
@@ -357,7 +357,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 graph[address].num_of_fan_ins, 
                 graph[address].num_of_fan_outs);
 
-            printf("%13d | %11d | %7d |", 
+            printf("%13d | %11d | %6d |", 
                 graph[address].correct_value, 
                 graph[address].fault_value, 
                 graph[address].marker);
@@ -371,10 +371,11 @@ void print_circuit(NODE *graph, int num_of_nodes)
             }
             else
             {
-                _str_len = 2;
+                _str_len = 0;
             }
  		
-            repeat(' ', 31 - _str_len);
+            repeat(' ', 32 - _str_len);
+	    printf(" |");
 
             temp = NULL;
             temp = graph[address].fanout;
@@ -385,10 +386,11 @@ void print_circuit(NODE *graph, int num_of_nodes)
             }
             else
             {
-                _str_len = 2;
+                _str_len = 0;
             }
 
             repeat(' ', 32 - _str_len);
+	    printf(" |\n");
         }
     }
     
