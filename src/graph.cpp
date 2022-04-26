@@ -122,7 +122,7 @@ int read_isc_file(FILE *isc_file, NODE *graph)
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
 
-    int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line, fanout_address;
+    int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line;
 
     num_of_circuit_elements = 0;
 

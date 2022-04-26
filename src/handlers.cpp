@@ -10,7 +10,7 @@ void unknown_handler(int address)
 
 void not_handler(FILE *isc_file, NODE *graph, int fanin, int address)
 {
-    int _branch_line; 
+    int _branch_line, fanout_address; 
 
     for(_branch_line = 1; _branch_line <= fanin; _branch_line += 1)
     {
@@ -25,7 +25,7 @@ void not_handler(FILE *isc_file, NODE *graph, int fanin, int address)
 
 void from_handler(NODE *graph, char *from, int num_of_circuit_elements, int address)
 {
-    int _branch_line;
+    int _branch_line, fanout_address;
 
     for(_branch_line = num_of_circuit_elements; _branch_line > 0; _branch_line -= 1)
     {
