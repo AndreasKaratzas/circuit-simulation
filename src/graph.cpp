@@ -411,7 +411,7 @@ void delete_circuit(NODE *graph, int n_elements)
  * @param vector   the result vector PATTERN structure entity
  * @return int     the total primary inputs count
  */
-int read_vec_file(FILE *vec_file, PATTERN *vector)
+int read_vec_file_bak(FILE *vec_file, PATTERN *vector)
 {
     int num_of_ins;
     char token[MAX_NUM_OF_PRIMARY_INPUTS];

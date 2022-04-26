@@ -72,7 +72,7 @@ void initialize_circuit(NODE *, int);
 int map_logic_gate(char *);
 void print_circuit(NODE *, int);
 void delete_circuit(NODE *, int);
-int read_vec_file(FILE *, PATTERN *);
+int read_vec_file_bak(FILE *, PATTERN *);
 
 void unknown_handler(int);
 void not_handler(FILE *, NODE *, int, int);
