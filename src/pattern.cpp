@@ -1,4 +1,7 @@
 
+#include "graph.hpp"
+
+
 /**
  * @brief Maps every character to its corresponding integer value as per instructions.
  *          * `0` is just typecasted to 0.
