@@ -55,7 +55,8 @@ typedef struct NODE_type
 
 typedef struct PATTERN_type
 {
-    char primary_input_vec[MAX_NUM_OF_PRIMARY_INPUTS];
+    int *primary_input_vec;
+    int num_of_primary_inputs;
 } PATTERN;
 
 typedef struct FAULT_type
@@ -76,3 +77,8 @@ int read_vec_file(FILE *, PATTERN *);
 void unknown_handler(int);
 void not_handler(FILE *, NODE *, int, int);
 void from_handler(NODE *, char *, int, int);
+
+void map_pattern(char *, int *, int);
+void read_vec_file(FILE *, PATTERN *);
+void print_vectors(PATTERN *, int);
+void delete_vectors(PATTERN *, int);

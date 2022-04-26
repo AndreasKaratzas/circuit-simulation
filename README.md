@@ -91,8 +91,8 @@ More information on the ISCAS '85 benchmark can be found [here](https://davidkeb
 
 ## TODO
 
-- [ ] create a `PATTERN` structure
-- [ ] create a `FAULT` structure
+- [x] create a `PATTERN` structure
+- [x] create a `FAULT` structure
 - [ ] `traverse_circuit()`
 - [ ] `cache_logic_gates()`
 - [ ] `forward_propagate()`
