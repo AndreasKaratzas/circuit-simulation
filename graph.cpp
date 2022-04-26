@@ -330,7 +330,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
     {
         if(graph[address].type != 0)
         {
-            printf("%d\t%s\t%d\t%d\t\t\t%d\t%d\t\t\t", 
+            printf("%d\t%s\t%d\t%d\t\t\t%d\t%d\t\t", 
                 address, 
                 graph[address].name, 
                 graph[address].type, 
