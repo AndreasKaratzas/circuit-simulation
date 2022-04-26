@@ -80,8 +80,9 @@ void delete_circuit(NODE *, int);
 int read_vec_file_bak(FILE *, PATTERN *);
 
 void unknown_handler(int);
-void not_handler(FILE *, NODE *, int, int);
 void from_handler(NODE *, char *, int, int);
+void single_input_gate_handler(FILE *, NODE *, int);
+void two_input_gate_handler(FILE *, NODE *, int);
 
 void map_pattern(char *, int *, int);
 int read_vec_file(FILE *, PATTERN *);

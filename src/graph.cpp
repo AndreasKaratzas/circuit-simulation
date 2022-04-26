@@ -186,14 +186,14 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         {
             case 0    : unknown_handler(address);
             case INPT : break;
-            case AND  : 
-            case NAND : 
-            case OR   : 
-            case NOR  : 
-            case XOR  : 
-            case XNOR : 
-            case BUFF :
-            case NOT  : not_handler(isc_file, graph, fanin, address); break;
+            case AND  : two_input_gate_handler(isc_file, graph, address); break;
+            case NAND : two_input_gate_handler(isc_file, graph, address); break;
+            case OR   : two_input_gate_handler(isc_file, graph, address); break;
+            case NOR  : two_input_gate_handler(isc_file, graph, address); break;
+            case XOR  : two_input_gate_handler(isc_file, graph, address); break;
+            case XNOR : two_input_gate_handler(isc_file, graph, address); break;
+            case BUFF : single_input_gate_handler(isc_file, graph, address); break;
+            case NOT  : single_input_gate_handler(isc_file, graph, address); break;
             case FROM : from_handler(graph, from, num_of_circuit_elements, address); break;
         }
 
