@@ -12,6 +12,8 @@
 #include <assert.h>
 #include <limits.h>
 
+#include "utils.hpp"
+
 #define MAX_FILENAME_SIZE                20
 #define MAX_NUM_OF_NODES              15000
 #define MAX_NUM_OF_CHARACTERS_IN_LINE   200

@@ -335,7 +335,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
     char splitter[512];
     char separator[512];
 
-    memset(splitter, '-', strlen(title) - 1);
+    repeat(splitter, '-', strlen(title) - 1);
     splitter[0] = '+';    
     splitter[strlen(title) - 1] = '+';
     splitter[strlen(title)] = '\0';
@@ -369,7 +369,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 _str_len = print_list(temp);
             }
 
-            memset(separator, ' ', 30 + 6 - _str_len);
+            repeat(separator, ' ', 30 + 6 - _str_len);
             printf("%s | ", separator);
 
             temp = NULL;
@@ -380,7 +380,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 _str_len = print_list(temp);
             }
 
-            memset(separator, ' ', 30 + 7 - _str_len);
+            repeat(separator, ' ', 30 + 7 - _str_len);
             printf("%s |\n", separator);
         }
     }
