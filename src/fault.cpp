@@ -13,20 +13,14 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
 {
     int num_of_faults = 0;
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
-    char *address;
-    char fault;
-
-    address = (char *) malloc(strlen(MAX_NUM_OF_NODES + '0') * sizeof(char));
-
+    
     while( !feof(faults_file) )
     {
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, faults_file);
         
         if (strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\n") != 0 && strcmp(line, "\0") != 0)
         {
-            sscanf(line, "%s/%s", address, fault);
-            faults[num_of_faults].address = atoi(address);
-            faults[num_of_faults].fault = atoi(fault);
+            sscanf(line, "%d/%d", faults[num_of_faults].address, faults[num_of_faults].fault);
             bzero(line, strlen(line));
             num_of_faults += 1;
         }
