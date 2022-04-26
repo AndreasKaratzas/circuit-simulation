@@ -323,7 +323,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
 {
     LIST *temp;
     int  address;
-    char title[] = "| ADDRESS\t | NAME\t | TYPE\t | PRIMARY OUTPUT #\t | INPUT #\t | OUTPUT #\t | CORRECT VALUE\t | FAULT VALUE\t | MARKER\t | FANIN\t | FANOUT |"
+    char title[] = "| ADDRESS\t | NAME\t | TYPE\t | PRIMARY OUTPUT #\t | INPUT #\t | OUTPUT #\t | CORRECT VALUE\t | FAULT VALUE\t | MARKER\t | FANIN\t | FANOUT |";
     char msg[512];
 
     sprintf(msg, "%0*d", strlen(title - 2), 0);
