@@ -113,7 +113,7 @@ int read_isc_file(FILE *isc_file, NODE *graph)
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
 
-    int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line;
+    int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line, fanout_address;
 
     num_of_circuit_elements = 0;
 
@@ -135,8 +135,8 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         // initialize temporary strings
         bzero(name, strlen(name));
         bzero(type, strlen(type));
-        bzero(fanout, strlen(fanout));
-        bzero(fanin, strlen(fanin));
+        bzero(fanout_str, strlen(fanout_str));
+        bzero(fanin_str, strlen(fanin_str));
         bzero(from, strlen(from));
 
         // break line into data
@@ -196,9 +196,9 @@ int read_isc_file(FILE *isc_file, NODE *graph)
 
             case NOT   :    for(_branch_line = 1; _branch_line <= fanin; _branch_line += 1)
                             {
-                                fscanf(isc_file, "%d", &fanout_id);
-                                insert_element(&graph[address].fanin, fanout_id);
-                                insert_element(&graph[fanout_id].fanout, address);
+                                fscanf(isc_file, "%d", &fanout_address);
+                                insert_element(&graph[address].fanin, fanout_address);
+                                insert_element(&graph[fanout_address].fanout, address);
                             }
 
                             fscanf(isc_file, "\n");
@@ -211,14 +211,14 @@ int read_isc_file(FILE *isc_file, NODE *graph)
                                 {
                                     if(strcmp(graph[_branch_line].name, from) == 0)
                                     {
-                                        fanout_id = _branch_line;
+                                        fanout_address = _branch_line;
                                         break;
                                     }
                                 }
                             }
 
-                            insert_element(&graph[address].fanin, fanout_id);
-                            insert_element(&graph[fanout_id].fanout, address);
+                            insert_element(&graph[address].fanin, fanout_address);
+                            insert_element(&graph[fanout_address].fanout, address);
 
                             break;
         }
