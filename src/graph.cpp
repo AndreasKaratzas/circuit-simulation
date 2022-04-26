@@ -184,17 +184,19 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         // create fanin and fanout lists
         switch (graph[address].type)
         {
-            case 0     : unknown_handler(address);
-            case INPT  : break;
-            case AND   : break;
-            case NAND  : break;
-            case OR    : break;
-            case NOR   : break;
-            case XOR   : break;
-            case XNOR  : break;
-            case BUFF  : break;
-            case NOT   : not_handler(isc_file, graph, fanin, address); break;
-            case FROM  : from_handler(graph, from, num_of_circuit_elements, address); break;
+            case 0    : unknown_handler(address);
+            case INPT : break;
+            case AND  : 
+            case NAND : 
+            case OR   : 
+            case NOR  : 
+            case XOR  : 
+            case XNOR : 
+            case BUFF :
+            case NOT  : not_handler(isc_file, graph, fanin, address); 
+                        break;
+            case FROM : from_handler(graph, from, num_of_circuit_elements, address); 
+                        break;
         }
 
         bzero(line, strlen(line));
