@@ -331,7 +331,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
 {
     LIST *temp;
     int  address, _str_len;
-    char title[] = "| ADDRESS |          NAME |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                              FANIN |                              FANOUT |";
+    char title[] = "| ADDRESS |        NAME |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                            FANIN |                            FANOUT |";
     char splitter[512];
     char separator[512];
 
