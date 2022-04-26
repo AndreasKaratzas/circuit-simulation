@@ -374,8 +374,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 _str_len = 2;
             }
  		
-            repeat(separator, ' ', 31 - _str_len);
-            printf("%s |", separator);
+            repeat(' ', 31 - _str_len);
 
             temp = NULL;
             temp = graph[address].fanout;
@@ -389,8 +388,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 _str_len = 2;
             }
 
-            repeat(separator, ' ', 32 - _str_len);
-            printf("%s |\n", separator);
+            repeat(' ', 32 - _str_len);
         }
     }
     
