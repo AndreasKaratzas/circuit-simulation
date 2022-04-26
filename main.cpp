@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     num_of_patterns = read_vec_file(vec_file, vectors);
     fclose(vec_file);
     print_vectors(vectors, num_of_patterns);
-    delete_vectors(vectors, MAX_NUM_OF_TEST_VECTORS);
+    delete_vectors(vectors, num_of_patterns);
     
     return (0);
 }

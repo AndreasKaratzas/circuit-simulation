@@ -74,7 +74,7 @@ void print_vectors(PATTERN *vectors, int num_of_patterns)
     printf("Vectors:\n");
     for (vector_count = 0; vector_count < num_of_patterns; vector_count += 1)
     {
-        printf("\tTest Vector[%d]: (Primary Inputs Count: %d)\n", vector_count, vectors[vector_count].num_of_primary_inputs);
+        printf("\tTest Vector[%d]: (Primary Inputs Count: %d)\n", vector_count + 1, vectors[vector_count].num_of_primary_inputs);
         for (element_count = 0; element_count < vectors[vector_count].num_of_primary_inputs; element_count += 1)
         {
             printf("\t\tPrimary Input[%d]: %d\n", element_count + 1, vectors[vector_count].primary_input_vec[element_count]);
