@@ -1,5 +1,5 @@
 CC              = g++
-SRC             = src/utils.cpp src/graph.cpp src/handlers.cpp src/pattern.cpp main.cpp
+SRC             = src/utils.cpp src/graph.cpp src/handlers.cpp src/pattern.cpp src/fault.cpp main.cpp
 INC				= lib
 TARGET          = project
 OBJ             = $(SRC:.c=.o)

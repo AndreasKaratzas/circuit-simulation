@@ -66,7 +66,7 @@ typedef struct PATTERN_bak_type
 
 typedef struct FAULT_type
 {
-    int target_node, target_value;
+    int address, fault;
 } FAULT;
 
 void insert_element(LIST **, int);
@@ -87,3 +87,6 @@ void map_pattern(char *, int *, int);
 int read_vec_file(FILE *, PATTERN *);
 void print_vectors(PATTERN *, int);
 void delete_vectors(PATTERN *, int);
+
+int read_faults_file(FILE *, FAULT *);
+void print_faults(FAULT *, int);

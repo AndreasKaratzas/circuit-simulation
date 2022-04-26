@@ -38,6 +38,7 @@ void map_pattern(char *pattern_str, int *pattern_int, int num_of_vec_elements)
  * 
  * @param vec_file the given `.vec` file to parse
  * @param vectors  the result vectors instantiated after processing the `.vec` file
+ * @return int     the total pattern count
  */
 int read_vec_file(FILE *vec_file, PATTERN *vectors)
 {

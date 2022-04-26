@@ -10,11 +10,12 @@
  */
 int main(int argc, char *argv[])
 {
-    FILE *isc_file, *vec_file, *fault_file, *out_file;
-    int num_of_nodes, num_of_patterns;
+    FILE *isc_file, *vec_file, *faults_file, *out_file;
+    int num_of_nodes, num_of_patterns, num_of_faults;
 
     NODE circuit[MAX_NUM_OF_NODES];
     PATTERN vectors[MAX_NUM_OF_TEST_VECTORS];
+    FAULT faults[MAX_NUM_OF_STUCK_AT_FAULTS];
     
     isc_file = fopen(argv[1], "r");
     num_of_nodes = read_isc_file(isc_file, circuit);
@@ -27,6 +28,11 @@ int main(int argc, char *argv[])
     fclose(vec_file);
     print_vectors(vectors, num_of_patterns);
     delete_vectors(vectors, num_of_patterns);
+
+    faults_file = fopen(argv[3], "r");
+    num_of_faults = read_faults_file(faults_file, faults);
+    fclose(faults_file);
+    print_vectors(faults, num_of_faults);
     
     return (0);
 }

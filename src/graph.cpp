@@ -193,10 +193,8 @@ int read_isc_file(FILE *isc_file, NODE *graph)
             case XOR  : 
             case XNOR : 
             case BUFF :
-            case NOT  : not_handler(isc_file, graph, fanin, address); 
-                        break;
-            case FROM : from_handler(graph, from, num_of_circuit_elements, address); 
-                        break;
+            case NOT  : not_handler(isc_file, graph, fanin, address); break;
+            case FROM : from_handler(graph, from, num_of_circuit_elements, address); break;
         }
 
         bzero(line, strlen(line));
