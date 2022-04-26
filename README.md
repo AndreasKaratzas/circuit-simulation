@@ -17,7 +17,7 @@ Implement a logic simulation tool in `C` language for combinational circuits. Lo
 
 ### Exercises
 
-1. Understand how the data structures and graphs have been programed. Structure `NODE` is an adjacency list where for each node we have linked lists of all its predecessor and successor nodes that represent `Fan_in` and `Fan_out` of that node.
+1. Understand how the data structures and graphs have been programed. Structure `NODE` is an adjacency list where for each node we have linked lists of all its predecessor and successor nodes that represent `fanin` and `fanout` of that node.
 
 ![adjacency-list](docs/adjacency-list-representation.webp)
 

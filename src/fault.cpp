@@ -44,7 +44,7 @@ void print_faults(FAULT *faults, int num_of_faults)
     printf("FAULTS:\n");
     for (fault_count = 0; fault_count < num_of_faults; fault_count += 1)
     {
-        printf("\tFault [%d]:\n\t\tAddress: %d stuck-at %d\n", fault_count + 1, faults[fault_count].address, faults[fault_count].fault);
+        printf("\tFault [%3d]:\n\t\tAddress: %6d stuck-at %2d\n", fault_count + 1, faults[fault_count].address, faults[fault_count].fault);
     }
 
     return;
