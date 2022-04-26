@@ -100,10 +100,7 @@ void delete_vectors(PATTERN *vectors, int num_of_patterns)
 
     for (vector_count = 0; vector_count < num_of_patterns; vector_count += 1)
     {
-        for (element_count = 0; element_count < vectors[vector_count].num_of_primary_inputs; element_count += 1)
-        {
-            free(vectors[vector_count].primary_input_vec);
-        }
+        free(vectors[vector_count].primary_input_vec);
     }
 
     return;
