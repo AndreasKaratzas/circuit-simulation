@@ -48,12 +48,16 @@ int read_vec_file(FILE *vec_file, PATTERN *vectors)
     while( !feof(vec_file) )
     {
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, vec_file);
-        sscanf(line, "%s", raw_vector);
-        vectors[num_of_patterns].num_of_primary_inputs = strlen(raw_vector);
-        vectors[num_of_patterns].primary_input_vec = (int*) malloc(vectors[num_of_patterns].num_of_primary_inputs * sizeof(int));
-        map_pattern(raw_vector, vectors[num_of_patterns].primary_input_vec, vectors[num_of_patterns].num_of_primary_inputs);
-        bzero(line, strlen(line));
-        num_of_patterns += 1;
+        
+        if (line[0] != '\n')
+        {
+            sscanf(line, "%s", raw_vector);
+            vectors[num_of_patterns].num_of_primary_inputs = strlen(raw_vector);
+            vectors[num_of_patterns].primary_input_vec = (int*) malloc(vectors[num_of_patterns].num_of_primary_inputs * sizeof(int));
+            map_pattern(raw_vector, vectors[num_of_patterns].primary_input_vec, vectors[num_of_patterns].num_of_primary_inputs);
+            bzero(line, strlen(line));
+            num_of_patterns += 1;
+        }
     }
     
     return (num_of_patterns);
