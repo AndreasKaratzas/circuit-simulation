@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     faults_file = fopen(argv[3], "r");
     num_of_faults = read_faults_file(faults_file, faults);
     fclose(faults_file);
-    print_vectors(faults, num_of_faults);
+    print_faults(faults, num_of_faults);
     
     return (0);
 }

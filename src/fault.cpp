@@ -13,8 +13,10 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
 {
     int num_of_faults = 0;
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
-    char address[strlen(MAX_NUM_OF_NODES + '0')];
+    char *address;
     char fault;
+
+    address = (char *) malloc(strlen(MAX_NUM_OF_NODES + '0') * sizeof(char));
 
     while( !feof(faults_file) )
     {
