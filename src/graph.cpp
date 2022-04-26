@@ -69,10 +69,12 @@ int print_list(LIST *l)
     {
         sprintf(str, "%d", temp->id);
         str_len = str_len + strlen(str);
-        printf("%d ", temp->id);
+        printf(" %s", str);
         str_len += 1;
         temp = temp->next;
     }
+
+    printf(" ");
 
     return (str_len);
 }
@@ -331,7 +333,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
 {
     LIST *temp;
     int  address, _str_len;
-    char title[] = "| ADDRESS |        NAME |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                            FANIN |                            FANOUT |";
+    char title[] = "| ADDRESS |        NAME |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                           FANIN |                          FANOUT |";
     char splitter[512];
     char separator[512];
 
@@ -356,7 +358,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 graph[address].num_of_fan_ins, 
                 graph[address].num_of_fan_outs);
 
-            printf("%13d | %11d | %6d |", 
+            printf("%13d | %11d | %7d |", 
                 graph[address].correct_value, 
                 graph[address].fault_value, 
                 graph[address].marker);
