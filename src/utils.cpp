@@ -11,10 +11,15 @@
 void repeat(char *str, char c, int num_of_chars)
 {
     int counter;
-
+/*
     for (counter = 0; counter < num_of_chars; counter += 1)
     {
         str[counter] = c;
+    }
+*/
+    for (counter = 0; counter < num_of_chars; counter += 1)
+    {
+	    printf("%c", c);
     }
 
     return;

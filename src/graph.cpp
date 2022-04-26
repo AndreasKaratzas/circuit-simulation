@@ -371,9 +371,9 @@ void print_circuit(NODE *graph, int num_of_nodes)
             }
             else
             {
-                _str_len = 0;
+                _str_len = 1;
             }
-        
+ 		
             repeat(separator, ' ', 32 - _str_len);
             printf("%s |", separator);
 
@@ -386,7 +386,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
             }
             else
             {
-                _str_len = 0;
+                _str_len = 1;
             }
 
             repeat(separator, ' ', 33 - _str_len);
