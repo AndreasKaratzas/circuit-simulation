@@ -3,4 +3,5 @@
 
 #include <stdio.h>
 
-void repeat(char *, char, int);
+void repeat(char, int);
+void store_repeat(char *, char, int);
