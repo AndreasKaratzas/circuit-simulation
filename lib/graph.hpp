@@ -13,6 +13,7 @@
 #include <limits.h>
 
 #include "utils.hpp"
+#include "handlers.hpp"
 
 #define MAX_FILENAME_SIZE                20
 #define MAX_NUM_OF_NODES              15000

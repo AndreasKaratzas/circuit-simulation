@@ -184,51 +184,18 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         // create fanin and fanout lists
         switch (graph[address].type)
         {
-            case 0     :    printf("`read_isc_file()`:\n\tError in input file (node %d)\n", address);
-                            exit(1);
-
+            case 0     :    unknown_handler(address);
             case INPT  :    break;
-
             case AND   :
-
             case NAND  :
-
             case OR    :
-
             case NOR   :
-
             case XOR   :
-
             case XNOR  :
-
             case BUFF  :
-
-            case NOT   :    for(_branch_line = 1; _branch_line <= fanin; _branch_line += 1)
-                            {
-                                fscanf(isc_file, "%d", &fanout_address);
-                                insert_element(&graph[address].fanin, fanout_address);
-                                insert_element(&graph[fanout_address].fanout, address);
-                            }
-
-                            fscanf(isc_file, "\n");
-
+            case NOT   :    not_handler(isc_file, graph, fanin, address);
                             break;
-
-            case FROM  :    for(_branch_line = num_of_circuit_elements; _branch_line > 0; _branch_line -= 1)
-                            {
-                                if(graph[_branch_line].type != 0)
-                                {
-                                    if(strcmp(graph[_branch_line].name, from) == 0)
-                                    {
-                                        fanout_address = _branch_line;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            insert_element(&graph[address].fanin, fanout_address);
-                            insert_element(&graph[fanout_address].fanout, address);
-
+            case FROM  :    from_handler(graph, from, num_of_circuit_elements, address);
                             break;
         }
 
