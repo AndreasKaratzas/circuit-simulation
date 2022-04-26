@@ -20,7 +20,7 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
         
         if (strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\n") != 0 && strcmp(line, "\0") != 0)
         {
-            sscanf(line, "%d/%d", faults[num_of_faults].address, faults[num_of_faults].fault);
+            sscanf(line, "%d/%d", &faults[num_of_faults].address, &faults[num_of_faults].fault);
             bzero(line, strlen(line));
             num_of_faults += 1;
         }
