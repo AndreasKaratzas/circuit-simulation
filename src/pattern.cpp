@@ -49,7 +49,7 @@ int read_vec_file(FILE *vec_file, PATTERN *vectors)
     {
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, vec_file);
         
-        if ( !( (line[0] == "\n") || (line[0] == "\r") || (line[0] == "\0") ) )
+        if ( ( (line[0] != "\n") && (line[0] != "\r") && (line[0] != "\0") ) )
         {
             sscanf(line, "%s", raw_vector);
             vectors[num_of_patterns].num_of_primary_inputs = strlen(raw_vector);
