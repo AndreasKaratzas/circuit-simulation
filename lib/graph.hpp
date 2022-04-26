@@ -13,7 +13,6 @@
 #include <limits.h>
 
 #include "utils.hpp"
-#include "handlers.hpp"
 
 #define MAX_FILENAME_SIZE                20
 #define MAX_NUM_OF_NODES              15000
@@ -73,3 +72,7 @@ int map_logic_gate(char *);
 void print_circuit(NODE *, int);
 void delete_circuit(NODE *, int);
 int read_vec_file(FILE *, PATTERN *);
+
+void unknown_handler(int);
+void not_handler(FILE *, NODE *, int, int);
+void from_handler(NODE *, char *, int, int);
