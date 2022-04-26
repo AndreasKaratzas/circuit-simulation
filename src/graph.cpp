@@ -184,7 +184,7 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         // create fanin and fanout lists
         switch (graph[address].type)
         {
-            case 0     :    printf("`read_isc_file()`:\n\tError in input file (node %d)\n", address); 
+            case 0     :    printf("`read_isc_file()`:\n\tError in input file (node %d)\n", address);
                             exit(1);
 
             case INPT  :    break;
@@ -337,7 +337,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
     char separator[512];
 
     store_repeat(splitter, '-', strlen(title) - 1);
-    splitter[0] = '+';    
+    splitter[0] = '+';
     splitter[strlen(title) - 1] = '+';
     splitter[strlen(title)] = '\0';
 
@@ -349,17 +349,17 @@ void print_circuit(NODE *graph, int num_of_nodes)
     {
         if(graph[address].type != 0)
         {
-            printf("| %7d | %11s | %4d  | %16d | %7d | %8d | ", 
-                address, 
-                graph[address].name, 
-                graph[address].type, 
-                graph[address].primary_output, 
-                graph[address].num_of_fan_ins, 
+            printf("| %7d | %11s | %4d  | %16d | %7d | %8d | ",
+                address,
+                graph[address].name,
+                graph[address].type,
+                graph[address].primary_output,
+                graph[address].num_of_fan_ins,
                 graph[address].num_of_fan_outs);
 
-            printf("%13d | %11d | %6d |", 
-                graph[address].correct_value, 
-                graph[address].fault_value, 
+            printf("%13d | %11d | %6d |",
+                graph[address].correct_value,
+                graph[address].fault_value,
                 graph[address].marker);
 
             temp = NULL;
@@ -373,9 +373,9 @@ void print_circuit(NODE *graph, int num_of_nodes)
             {
                 _str_len = 0;
             }
- 		
+
             repeat(' ', 32 - _str_len);
-	    printf(" |");
+            printf(" |");
 
             temp = NULL;
             temp = graph[address].fanout;
@@ -390,10 +390,10 @@ void print_circuit(NODE *graph, int num_of_nodes)
             }
 
             repeat(' ', 32 - _str_len);
-	    printf(" |\n");
+            printf(" |\n");
         }
     }
-    
+
     printf("%s\n", splitter);
 
     return;
