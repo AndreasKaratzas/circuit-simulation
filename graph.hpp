@@ -36,7 +36,8 @@
 #define FROM 10             // STEM BRANCH
 
 
-typedef struct LIST_type {
+typedef struct LIST_type 
+{
     int id;                 // id of loaded element
     struct LIST_type *next; // pointer to next element (default: NULL)
 } LIST;
@@ -44,11 +45,21 @@ typedef struct LIST_type {
 
 typedef struct NODE_type
 {
-    char Name[MAX_NODE_ALIAS_LEN];
-    int  Type, num_of_fan_ins, num_of_fan_outs, primary_op;
-    int  Mark, correct_value, fault_value;
+    char id[MAX_NODE_ALIAS_LEN];
+    int  type, num_of_fan_ins, num_of_fan_outs, primary_op;
+    int  marker, correct_value, fault_value;
     LIST *Fan_in, *Fan_out;
 } NODE;
+
+typedef struct PATTERN_type
+{
+    char primary_input_vec[MAX_NUM_OF_PRIMARY_INPUTS];
+} PATTERN;
+
+typedef struct FAULT_type
+{
+    int target_node, target_value;
+} FAULT;
 
 void insert_element(LIST **, int);
 void print_list(LIST *);

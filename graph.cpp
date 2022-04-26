@@ -98,38 +98,36 @@ void delete_element(LIST **l)
 
 
 /**
- * @brief Parses the ISC (benchmark) file into a graph of type NODE structure.
+ * @brief Parses an ISC file into a graph of type NODE structure.
  *
- * @param fisc  the given ISC file
- * @param graph the result graph NODE structure entity
- * @return int  the index of the last node generated in the new graph entity
+ * @param isc_file  the given ISC file
+ * @param graph     the result graph NODE structure entity
+ * @return int      the index of the last node generated in the new graph entity
  */
-int read_isc_file(FILE *fisc, NODE *graph)
+int read_isc_file(FILE *isc_file, NODE *graph)
 {
-    char c;
-
-    char noty[MAX_NUM_OF_CHARACTERS_IN_LINE];
+    char type[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char str1[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char str2[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char name[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
 
-    int  i, id, fid, Fin, fout, mid = 0;
+    int  node_count, address, fid, Fin, fout, mid = 0;
 
     // initialize all nodes in graph structure
-    for(i = 0; i < MAX_NUM_OF_NODES; i += 1)
+    for(node_count = 0; node_count < MAX_NUM_OF_NODES; node_count += 1)
     {
-        initialize_circuit(graph, i);
+        initialize_circuit(graph, node_count);
     }
 
     // skip the comment lines
     do {
-        fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, fisc);
+        fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, isc_file);
     } while(line[0] == '*');
 
     // read line by line
-    while( !feof(fisc) )
+    while( !feof(isc_file) )
     {
 
         // initialize temporary strings
@@ -140,7 +138,7 @@ int read_isc_file(FILE *fisc, NODE *graph)
         bzero(name, strlen(name));
 
         // break line into data
-        sscanf(line, "%d %s %s %s %s", &id, name, noty, str1, str2);
+        sscanf(line, "%d %s %s %s %s", &address, name, type, fanout, fanin);
 
         // fill in the Type
         strcpy(graph[id].Name,name);
@@ -195,12 +193,12 @@ int read_isc_file(FILE *fisc, NODE *graph)
 
             case NOT   :    for(i = 1; i <= Fin; i += 1)
                             {
-                                fscanf(fisc, "%d", &fid);
+                                fscanf(isc_file, "%d", &fid);
                                 insert_element(&graph[id].Fan_in, fid);
                                 insert_element(&graph[fid].Fan_out, id);
                             }
 
-                            fscanf(fisc, "\n");
+                            fscanf(isc_file, "\n");
 
                             break;
 
@@ -223,7 +221,7 @@ int read_isc_file(FILE *fisc, NODE *graph)
         }
 
         bzero(line, strlen(line));
-        fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, fisc);
+        fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, isc_file);
     }
 
     return (mid);
@@ -324,7 +322,7 @@ void print_circuit(NODE *graph, int Max)
     int  i;
 
     printf("\nID\tNAME\tTypeE\tPO\tIN#\tOUT#\tCVAL\tFVAL\tMarkK\tFANIN\tFANOUT\n");
-    
+
     for(i = 0; i <= Max; i += 1)
     {
         if(graph[i].Type != 0)
@@ -396,4 +394,34 @@ void delete_circuit(NODE *graph, int n_elements)
     }
 
     return;
+}
+
+/**
+ * @brief Parses a VEC file into a vector of type PATTERN structure.
+ *
+ * @param vec_file the given VEC file
+ * @param vector   the result vector PATTERN structure entity
+ * @return int     the total primary inputs count
+ */
+int read_vec_file(FILE *vec_file, PATTERN *vector)
+{
+    int num_of_ins;
+    char token[MAX_NUM_OF_PRIMARY_INPUTS];
+
+    num_of_ins = 0;
+
+    while( !feof(vec_file) )
+    {
+        bzero(token, MAX_NUM_OF_PRIMARY_INPUTS);
+        fgets(token, MAX_NUM_OF_PRIMARY_INPUTS, vec_file);
+
+        if(*token != '\0')
+        {
+            bzero(vector[num_of_ins].primary_input_vec, MAX_NUM_OF_PRIMARY_INPUTS);
+            strcpy(vector[num_of_ins].primary_input_vec, token);
+            num_of_ins += 1;
+        }
+    }
+
+    return (num_of_ins);
 }

@@ -61,6 +61,34 @@ Simulate every input vector and report the corresponding logic responses at the 
 1. All the program code files.
 2. Generated result file for each combinational circuit (one file with input pattern and its output response). The output file contains all the information in the order exactly as the given .vec file.
 
+## The ISCAS '85 benchmark circuits and netlist format
+
+Suppose the following entry in an `.isc` file:
+```
+    1     1gat inpt    1   0      >sa1
+```
+
+This means that:
+1. The node address is `1`
+2. The node name is `1gat`
+3. The node type is `inpt`
+4. The node fanout is `1`
+5. The node fanin is `0`
+6. The node fault(s) is `>sa1`, which maps to _stuck-at 1_
+
+There is another kind of line, the _fanin_ line. The fanin line provides a list of the addresses of the nodes that fan in to the gate driving this node. It always appears immediately after its associated node line. Note that primary inputs do not have a fanin line because, by definition, primary inputs have a fanin of `0`. Also, the number of addresses appearing on the fanin line will equal the fanin reported on the node line. Example:
+```
+     1     8
+```
+
+Looking at the node with address 10 in the `c17` example, we see it has a fanin of 2 and the two fanin addresses are 1 and 8. The node with address 1 is a primary input and the node with address 8 is a fanout branch (type `from`). 
+
+The last kind of lines is the _fanout_ branch line. Fanout branch lines are similar to node lines in that they have an address, a name and a type (always from), but the information is associated with a single fanout branch of a fanout stem. Fanout branch lines must appear immediately after the node line (and its fanin line) with which they are associated. Since fanout branches always have a fanout and a fanin of one, this information is not listed as with a node line. Instead, the name of the fanout stem is given after the type. This is redundant information, but, nevertheless, it is part of the format. As a consequence of having a fanout of one, fanout branches may never represent a primary output since primary outputs always have a fanout of zero. Also, note that nodes with a fanout less than or equal to one do not have fanout branches. If the fanout is greater than one, the number of fanout branch lines will equal the fanout reported on the node line. Example:
+
+The node with address `16`, named `16gat`, is type `NAND`, has a fanout of 2 and a fanin of 2. Immediately following the node line is the _fanin_ line which lists node addresses `2` and `14` as the inputs: a _primary input_ and a _fanout branch_ of a `NAND` gate. Following the fanin line are the 2 _fanout branch_ lines; one for each fanout. The netlist then continues with the next node.
+
+More information on the ISCAS '85 benchmark can be found [here](https://davidkebo.com/documents/iscas85.pdf).
+
 ## TODO
 
 - [ ] create a `PATTERN` structure
