@@ -49,3 +49,9 @@ void print_faults(FAULT *faults, int num_of_faults)
 
     return;
 }
+
+
+void inject_fault()
+{
+
+}
