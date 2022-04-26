@@ -369,7 +369,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 _str_len = print_list(temp);
             }
 
-            repeat(separator, ' ', 30 + 6 - _str_len);
+            repeat(separator, ' ', 28 + 6 - _str_len);
             printf("%s | ", separator);
 
             temp = NULL;
@@ -380,7 +380,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 _str_len = print_list(temp);
             }
 
-            repeat(separator, ' ', 30 + 7 - _str_len);
+            repeat(separator, ' ', 28 + 7 - _str_len);
             printf("%s |\n", separator);
         }
     }
