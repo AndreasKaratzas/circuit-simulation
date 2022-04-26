@@ -45,10 +45,10 @@ typedef struct LIST_type
 
 typedef struct NODE_type
 {
-    char id[MAX_NODE_ALIAS_LEN];
-    int  type, num_of_fan_ins, num_of_fan_outs, primary_op;
+    char name[MAX_NODE_ALIAS_LEN];
+    int  type, num_of_fan_ins, num_of_fan_outs, primary_output;
     int  marker, correct_value, fault_value;
-    LIST *Fan_in, *Fan_out;
+    LIST *fanin, *fanout;
 } NODE;
 
 typedef struct PATTERN_type
@@ -69,3 +69,4 @@ void initialize_circuit(NODE *, int);
 int map_logic_gate(char *);
 void print_circuit(NODE *, int);
 void delete_circuit(NODE *, int);
+int read_vec_file(FILE *, PATTERN *);

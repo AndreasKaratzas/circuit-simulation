@@ -106,14 +106,16 @@ void delete_element(LIST **l)
  */
 int read_isc_file(FILE *isc_file, NODE *graph)
 {
-    char type[MAX_NUM_OF_CHARACTERS_IN_LINE];
-    char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
-    char str1[MAX_NUM_OF_CHARACTERS_IN_LINE];
-    char str2[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char name[MAX_NUM_OF_CHARACTERS_IN_LINE];
+    char type[MAX_NUM_OF_CHARACTERS_IN_LINE];
+    char fanout_str[MAX_NUM_OF_CHARACTERS_IN_LINE];
+    char fanin_str[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
+    char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
 
-    int  node_count, address, fid, Fin, fout, mid = 0;
+    int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line;
+
+    num_of_circuit_elements = 0;
 
     // initialize all nodes in graph structure
     for(node_count = 0; node_count < MAX_NUM_OF_NODES; node_count += 1)
@@ -131,49 +133,50 @@ int read_isc_file(FILE *isc_file, NODE *graph)
     {
 
         // initialize temporary strings
-        bzero(noty, strlen(noty));
-        bzero(from, strlen(from));
-        bzero(str1, strlen(str1));
-        bzero(str2, strlen(str2));
         bzero(name, strlen(name));
+        bzero(type, strlen(type));
+        bzero(fanout, strlen(fanout));
+        bzero(fanin, strlen(fanin));
+        bzero(from, strlen(from));
 
         // break line into data
-        sscanf(line, "%d %s %s %s %s", &address, name, type, fanout, fanin);
+        sscanf(line, "%d %s %s %s %s", &address, name, type, fanout_str, fanin_str);
 
         // fill in the Type
-        strcpy(graph[id].Name,name);
-        graph[id].Type = map_logic_gate(noty);
+        strcpy(graph[address].name, name);
+        graph[address].type = map_logic_gate(type);
 
         // fill in fanin and fanout numbers
-        if(graph[id].Type != FROM)
+        if(graph[address].type != FROM)
         {
-            fout = atoi(str1);
-            Fin = atoi(str2);
+            fanout = atoi(fanout_str);
+            fanin = atoi(fanin_str);
         }
         else
         {
-            Fin = 1;
-            fout = 1;
-            strcpy(from, str1);
+            fanin = 1;
+            fanout = 1;
+            strcpy(from, fanout_str);
         }
 
-        if(id > mid)
+        if(address > num_of_circuit_elements)
         {
-            mid = id;
+            num_of_circuit_elements = address;
         }
 
-        graph[id].num_of_fan_outs = fout;
-        graph[id].num_of_fan_ins = Fin;
+        graph[address].num_of_fan_outs = fanout;
+        graph[address].num_of_fan_ins = fanin;
 
-        if(fout == 0)
+        if(fanout == 0)
         {
-            graph[id].primary_op = 1;
+            graph[address].primary_output = 1;
         }
 
         // create fanin and fanout lists
-        switch (graph[id].Type)
+        switch (graph[address].type)
         {
-            case 0     :    printf("ReadIsc: Error in input file (Node %d)\n",id); exit(1);
+            case 0     :    printf("`read_isc_file()`:\n\tError in input file (node %d)\n", address); 
+                            exit(1);
 
             case INPT  :    break;
 
@@ -191,31 +194,31 @@ int read_isc_file(FILE *isc_file, NODE *graph)
 
             case BUFF  :
 
-            case NOT   :    for(i = 1; i <= Fin; i += 1)
+            case NOT   :    for(_branch_line = 1; _branch_line <= fanin; _branch_line += 1)
                             {
-                                fscanf(isc_file, "%d", &fid);
-                                insert_element(&graph[id].Fan_in, fid);
-                                insert_element(&graph[fid].Fan_out, id);
+                                fscanf(isc_file, "%d", &fanout_id);
+                                insert_element(&graph[address].fanin, fanout_id);
+                                insert_element(&graph[fanout_id].fanout, address);
                             }
 
                             fscanf(isc_file, "\n");
 
                             break;
 
-            case FROM  :    for(i = mid; i > 0; i -= 1)
+            case FROM  :    for(_branch_line = num_of_circuit_elements; _branch_line > 0; _branch_line -= 1)
                             {
-                                if(graph[i].Type != 0)
+                                if(graph[_branch_line].type != 0)
                                 {
-                                    if(strcmp(graph[i].Name, from) == 0)
+                                    if(strcmp(graph[_branch_line].name, from) == 0)
                                     {
-                                        fid = i;
+                                        fanout_id = _branch_line;
                                         break;
                                     }
                                 }
                             }
 
-                            insert_element(&graph[id].Fan_in, fid);
-                            insert_element(&graph[fid].Fan_out, id);
+                            insert_element(&graph[address].fanin, fanout_id);
+                            insert_element(&graph[fanout_id].fanout, address);
 
                             break;
         }
@@ -224,30 +227,30 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, isc_file);
     }
 
-    return (mid);
+    return (num_of_circuit_elements);
 }
 
 /**
- * @brief Initializes a particular member of a given graph entity of type NODE structure.
+ * @brief Initializes a particular node of a given graph entity of type NODE structure.
  *
- * @param graph the given NODE structure
- * @param idx   the index of the particular entity
+ * @param graph   the given NODE structure
+ * @param address the address of the particular node entity
  */
-void initialize_circuit(NODE *graph, int idx)
+void initialize_circuit(NODE *graph, int address)
 {
-    bzero(graph[idx].Name, MAX_NODE_ALIAS_LEN);
+    bzero(graph[address].name, MAX_NODE_ALIAS_LEN);
 
-    graph[idx].Type = 0;
-    graph[idx].num_of_fan_ins = 0;
-    graph[idx].num_of_fan_outs = 0;
-    graph[idx].primary_op = 0;
-    graph[idx].Mark = 0;
+    graph[address].type = 0;
+    graph[address].num_of_fan_ins = 0;
+    graph[address].num_of_fan_outs = 0;
+    graph[address].primary_output = 0;
+    graph[address].marker = 0;
 
-    graph[idx].correct_value = 3;
-    graph[idx].fault_value = 3;
+    graph[address].correct_value = 3;
+    graph[address].fault_value = 3;
 
-    graph[idx].Fan_in = NULL;
-    graph[idx].Fan_out = NULL;
+    graph[address].fanin = NULL;
+    graph[address].fanout = NULL;
 
     return;
 }
@@ -256,48 +259,48 @@ void initialize_circuit(NODE *graph, int idx)
  * @brief Maps the string arguments to classes of type int.
  *        Those classes representr logic gates.
  *
- * @param Type the given string argument
+ * @param type the given string argument
  * @return int the corresponding logic gate ID
  */
-int map_logic_gate(char *Type)
+int map_logic_gate(char *type)
 {
-    if ( (strcmp(Type, "inpt") == 0) || (strcmp(Type, "INPT") == 0) )
+    if ( (strcmp(type, "inpt") == 0) || (strcmp(type, "INPT") == 0) )
     {
         return (1);
     }
-    else if ( (strcmp(Type, "and") == 0) || (strcmp(Type, "AND") == 0) )
+    else if ( (strcmp(type, "and") == 0) || (strcmp(type, "AND") == 0) )
     {
         return (2);
     }
-    else if ( (strcmp(Type, "nand") == 0) || (strcmp(Type, "NAND") == 0) )
+    else if ( (strcmp(type, "nand") == 0) || (strcmp(type, "NAND") == 0) )
     {
         return (3);
     }
-    else if ( (strcmp(Type, "or") == 0) || (strcmp(Type, "OR") == 0) )
+    else if ( (strcmp(type, "or") == 0) || (strcmp(type, "OR") == 0) )
     {
         return (4);
     }
-    else if ( (strcmp(Type, "nor") == 0) || (strcmp(Type, "NOR") == 0) )
+    else if ( (strcmp(type, "nor") == 0) || (strcmp(type, "NOR") == 0) )
     {
         return (5);
     }
-    else if ( (strcmp(Type, "xor") == 0) || (strcmp(Type, "XOR") == 0) )
+    else if ( (strcmp(type, "xor") == 0) || (strcmp(type, "XOR") == 0) )
     {
         return (6);
     }
-    else if ( (strcmp(Type, "xnor") == 0) || (strcmp(Type, "XNOR") == 0))
+    else if ( (strcmp(type, "xnor") == 0) || (strcmp(type, "XNOR") == 0))
     {
         return (7);
     }
-    else if ( (strcmp(Type, "buff") == 0) || (strcmp(Type, "BUFF") == 0) )
+    else if ( (strcmp(type, "buff") == 0) || (strcmp(type, "BUFF") == 0) )
     {
         return (8);
     }
-    else if ( (strcmp(Type, "not") == 0) || (strcmp(Type, "NOT") == 0) )
+    else if ( (strcmp(type, "not") == 0) || (strcmp(type, "NOT") == 0) )
     {
         return (9);
     }
-    else if ( (strcmp(Type, "from") == 0) || (strcmp(Type, "FROM") == 0) )
+    else if ( (strcmp(type, "from") == 0) || (strcmp(type, "FROM") == 0) )
     {
         return (10);
     }
@@ -312,26 +315,36 @@ int map_logic_gate(char *Type)
  *        The use case of this function is after parsing an ISC file
  *        using `ReadIsc()`.
  *
- * @param graph the given graph entity
- * @param Max   the index of the last node generated in the new graph entity.
- *              This is returned by `ReadIsc()`
+ * @param graph        the given graph entity
+ * @param num_of_nodes the index of the last node generated in the new graph entity.
+ *                     This is returned by `ReadIsc()`
  */
-void print_circuit(NODE *graph, int Max)
+void print_circuit(NODE *graph, int num_of_nodes)
 {
     LIST *temp;
-    int  i;
+    int  address;
 
     printf("\nID\tNAME\tTypeE\tPO\tIN#\tOUT#\tCVAL\tFVAL\tMarkK\tFANIN\tFANOUT\n");
 
-    for(i = 0; i <= Max; i += 1)
+    for(address = 0; address <= num_of_nodes; address += 1)
     {
-        if(graph[i].Type != 0)
+        if(graph[address].type != 0)
         {
-            printf("%d\t%s\t%d\t%d\t%d\t%d\t", i, graph[i].Name, graph[i].Type, graph[i].primary_op, graph[i].num_of_fan_ins, graph[i].num_of_fan_outs);
-            printf("%d\t%d\t%d\t", graph[i].correct_value, graph[i].fault_value, graph[i].Mark);
+            printf("%d\t%s\t%d\t%d\t%d\t%d\t", 
+                address, 
+                graph[address].name, 
+                graph[address].type, 
+                graph[address].primary_output, 
+                graph[address].num_of_fan_ins, 
+                graph[address].num_of_fan_outs);
+
+            printf("%d\t%d\t%d\t", 
+                graph[address].correct_value, 
+                graph[address].fault_value, 
+                graph[address].marker);
 
             temp = NULL;
-            temp = graph[i].Fan_in;
+            temp = graph[address].fanin;
 
             if(temp != NULL)
             {
@@ -341,7 +354,7 @@ void print_circuit(NODE *graph, int Max)
             printf("\t");
 
             temp = NULL;
-            temp = graph[i].Fan_out;
+            temp = graph[address].fanout;
 
             if(temp != NULL)
             {
@@ -363,32 +376,32 @@ void print_circuit(NODE *graph, int Max)
  */
 void delete_circuit(NODE *graph, int n_elements)
 {
-    int idx = 0;
+    int address;
 
-    for(idx = 0; idx < n_elements; idx += 1)
+    for(address = 0; address < n_elements; address += 1)
     {
-        graph[idx].Type = 0;
-        graph[idx].num_of_fan_ins = 0;
-        graph[idx].num_of_fan_outs = 0;
-        graph[idx].primary_op = 0;
-        graph[idx].Mark = 0;
-        graph[idx].correct_value = 0;
-        graph[idx].fault_value = 0;
+        graph[address].type = 0;
+        graph[address].num_of_fan_ins = 0;
+        graph[address].num_of_fan_outs = 0;
+        graph[address].primary_output = 0;
+        graph[address].marker = 0;
+        graph[address].correct_value = 0;
+        graph[address].fault_value = 0;
 
-        if(graph[idx].Type != 0)
+        if(graph[address].type != 0)
         {
-            bzero(graph[idx].Name, MAX_NODE_ALIAS_LEN);
+            bzero(graph[address].name, MAX_NODE_ALIAS_LEN);
 
-            if(graph[idx].Fan_in != NULL)
+            if(graph[address].fanin != NULL)
             {
-                delete_element(&graph[idx].Fan_in);
-                graph[idx].Fan_in = NULL;
+                delete_element(&graph[address].fanin);
+                graph[address].fanin = NULL;
             }
 
-            if(graph[idx].Fan_out != NULL)
+            if(graph[address].fanout != NULL)
             {
-                delete_element(&graph[idx].Fan_out);
-                graph[idx].Fan_out = NULL;
+                delete_element(&graph[address].fanout);
+                graph[address].fanout = NULL;
             }
         }
     }
