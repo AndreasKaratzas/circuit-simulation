@@ -331,7 +331,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
 {
     LIST *temp;
     int  address, _str_len;
-    char title[] = "| ADDRESS |       NAME   |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                                                               FANIN |                                                               FANOUT |";
+    char title[] = "| ADDRESS |          NAME |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                              FANIN |                              FANOUT |";
     char splitter[512];
     char separator[512];
 
@@ -348,7 +348,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
     {
         if(graph[address].type != 0)
         {
-            printf("| %7d | %10s\t | %4d  | %16d | %7d | %8d | ", 
+            printf("| %7d | %10s | %4d  | %16d | %7d | %8d | ", 
                 address, 
                 graph[address].name, 
                 graph[address].type, 
@@ -369,7 +369,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 _str_len = print_list(temp);
             }
 
-            memset(separator, ' ', 64 + 5 - _str_len);
+            memset(separator, ' ', 30 + 6 - _str_len);
             printf("%s | ", separator);
 
             temp = NULL;
@@ -380,7 +380,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 _str_len = print_list(temp);
             }
 
-            memset(separator, ' ', 64 + 6 - _str_len);
+            memset(separator, ' ', 30 + 7 - _str_len);
             printf("%s |\n", separator);
         }
     }
