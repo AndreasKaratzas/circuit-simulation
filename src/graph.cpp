@@ -328,7 +328,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
 
     sprintf(msg, "%0*d", strlen(title - 2), 0);
     subst(msg, '0', '-');
-    prepend(msg, '+');
+    prepend(msg, (char *)'+');
     msg[strlen(title - 1)] = '+';
 
     printf("%s\n", msg);

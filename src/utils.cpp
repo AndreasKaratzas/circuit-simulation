@@ -21,7 +21,7 @@ void subst(char *s, char from, char to)
  * @param s the source string
  * @param t the target string
  */
-void prepend(char *s, char t)
+void prepend(char *s, char *t)
 {
     size_t len = strlen(t);
     memmove(s + len, s, strlen(s) + 1);
