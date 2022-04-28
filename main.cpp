@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     NODE circuit[MAX_NUM_OF_NODES];
     PATTERN vectors[MAX_NUM_OF_TEST_VECTORS];
     FAULT faults[MAX_NUM_OF_STUCK_AT_FAULTS];
+    LOGGER logs[MAX_NUM_OF_TEST_VECTORS * MAX_NUM_OF_STUCK_AT_FAULTS];
     
     isc_file = fopen(argv[1], "r");
     num_of_nodes = read_isc_file(isc_file, circuit);
@@ -33,6 +34,10 @@ int main(int argc, char *argv[])
     num_of_faults = read_faults_file(faults_file, faults);
     fclose(faults_file);
     print_faults(faults, num_of_faults);
-    
+
+    out_file = fopen(argv[4], "r");
+    log_simulation(logs, out_file, num_of_patterns * num_of_faults);
+    fclose(out_file);
+
     return (0);
 }

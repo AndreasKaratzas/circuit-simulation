@@ -50,8 +50,14 @@ void print_faults(FAULT *faults, int num_of_faults)
     return;
 }
 
-
-void inject_fault()
+/**
+ * @brief Injects the desired fault in the circuit.
+ * 
+ * @param graph   the graph that represents a circuit
+ * @param address the address of the node to be injected with the fault
+ * @param fault   the desired (stuck-at) fault value
+ */
+void inject_fault(NODE *graph, int address, int fault)
 {
-
+    graph[address].fault_value = fault;
 }

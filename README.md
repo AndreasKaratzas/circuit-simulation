@@ -91,20 +91,12 @@ More information on the ISCAS '85 benchmark can be found [here](https://davidkeb
 
 ## TODO
 
-- [x] create a `PATTERN` structure
-- [x] create a `FAULT` structure
-- [ ] `traverse_circuit()`
-- [ ] `cache_logic_gates()`
-- [ ] `forward_propagate()`
-- [ ] `simulate_circuit()`
-- [ ] `load_circuit()`
-- [ ] `load_test_vector()`
-- [ ] `read_faults_file()` : Ignore whitespace
-- [ ] `load_pattern()`
-- [ ] `load_fault()`
-- [ ] `trace_error()`
-- [ ] `test_circuit()`
-- [ ] `log_pattern_simulation()`
-- [ ] `log_faults_simulation()`
-- [ ] `store_results()`
-- [ ] `main()`
+- [ ] split logic functions into _fault_ and _correct_
+- [ ] update docstrings in `logic.cpp` with respect to the changes described above
+- [ ] update the function list inside `graph.hpp`
+- [ ] implement the two `logger.cpp` functions
+- [ ] spaces between all flow control routines
+- [ ] ask about the unknown command line argument
+- [ ] trim all whitespace from all files
+- [ ] ask about the project deadline extension 
+- [ ] "typecast" the whole project from C++ to C

@@ -2,27 +2,17 @@
 #include "graph.hpp"
 
 
-
-void mask_mapper_error(int gate_type, int address)
+/**
+ * @brief This is a utility that returns the compelment 
+ *        of a given three value state as per the rules
+ *        of three value Boolean Algebra.
+ * 
+ * @param input the given state
+ * @return int  the complementary of the given state
+ */
+int complementary(int input)
 {
-    switch (gate_type)
-    {
-        case 2: printf("`map_and()`: mapper failed at node %d\n", address); exit(1);
-        case 3: printf("`map_nand()`: mapper failed at node %d\n", address); exit(1);
-        case 4: printf("`map_or()`: mapper failed at node %d\n", address); exit(1);
-        case 5: printf("`map_nor()`: mapper failed at node %d\n", address); exit(1);
-        case 6: printf("`map_xor()`: mapper failed at node %d\n", address); exit(1);
-        case 7: printf("`map_xnor()`: mapper failed at node %d\n", address); exit(1);
-        case 8: printf("`map_buffer()`: mapper failed at node %d\n", address); exit(1);
-        case 9: printf("`map_not()`: mapper failed at node %d\n", address); exit(1);
-        case 10:printf("`map_from()`: mapper failed at node %d\n", address); exit(1);
-        default:printf("`mask_mapper_error()`: mapper fault mask failed at node %d with unknown gate type %d\n", address, gate_type); exit(1);
-    }
-}
-
-int get_complement(int value)
-{
-    switch (value)
+    switch (input)
     {
         case 0: return (1);
         case 1: return (0);
@@ -30,188 +20,413 @@ int get_complement(int value)
     }
 }
 
-int map_and(NODE *graph, LIST *fanin, int address)
+/**
+ * @brief This function computes the result of an AND logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the AND 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the AND gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ * @return int    the result of the AND gate.
+ */
+int compute_and(NODE *graph, int address)
 {
-    int fanin_counter, accumulator, zero_flag;
+    int fanin_counter, result, zero_flag, dont_care_flag;
 
-    accumulator = 0;
-    zero_flag = 1;
-
-    for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
-    {
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 3)
-        {
-            if (graph[graph[address].fanin[fanin_counter]].correct_value == 0)
-            {
-                zero_flag = 1;
-            }
-            else
-            {
-                accumulator += graph[graph[address].fanin[fanin_counter]].correct_value;
-            }
-        }
-        else
-        {
-            if (graph[graph[address].fanin[fanin_counter]].fault_value == 0)
-            {
-                zero_flag = 1;
-            }
-            else
-            {
-                accumulator += graph[graph[address].fanin[fanin_counter]].fault_value;
-            }
-        }
-    }
-
-    if (accumulator % graph[address].num_of_fan_ins == 0)
-    {
-        return (1);
-    }
-    else if (accumulator / graph[address].num_of_fan_ins > 1)
-    {
-        if (zero_flag == 1)
-        {
-            return (0);
-        }
-        else
-        {
-            return (2);
-        }
-    }
-    else
-    {
-        return (0);
-    }
-}
-
-int map_nand(NODE *graph, LIST *fanin, int address)
-{
-    return (get_complement(map_and(graph, fanin, address)));
-}
-
-static inline int map_or(NODE *graph, LIST *fanin, int address)
-{
-    int fanin_counter, accumulator, dont_care_counter;
-
-    accumulator = 0;
-    dont_care_counter = 0;
-
-    for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
-    {
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 3)
-        {
-            if (graph[graph[address].fanin[fanin_counter]].correct_value == 2)
-            {
-                dont_care_counter += 1;
-            }
-            accumulator += graph[graph[address].fanin[fanin_counter]].correct_value;
-        }
-        else
-        {
-            accumulator += graph[graph[address].fanin[fanin_counter]].fault_value;
-        }
-    }
-
-    if (dont_care_counter > 0)
-    {
-        if (accumulator - (2 * dont_care_counter) > 0)
-        {
-            return (1);
-        }
-        else
-        {
-            return (2);
-        }
-    }
-    else
-    {
-        if (accumulator > 0)
-        {
-            return (1);
-        }
-        else
-        {
-            return (0);
-        }
-    }
-}
-
-int map_nor(NODE *graph, LIST *fanin, int address)
-{
-    (get_complement(map_or(graph, fanin, address)));
-}
-
-int map_xor(NODE *graph, LIST *fanin, int address)
-{
-    int fanin_counter, accumulator, dont_care_flag;
-
-    accumulator = 0;
+    zero_flag = 0;
     dont_care_flag = 0;
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 3)
+        if (graph[graph[address].fanin[fanin_counter]].fault_value == 0)
         {
-            if (graph[graph[address].fanin[fanin_counter]].correct_value == 2)
-            {
-                dont_care_flag = 1;
-            }
-            accumulator += graph[graph[address].fanin[fanin_counter]].correct_value;
+            zero_flag = 1;
         }
-        else
+        if (graph[graph[address].fanin[fanin_counter]].fault_value == 2)
         {
-            accumulator += graph[graph[address].fanin[fanin_counter]].fault_value;
+            dont_care_flag = 1;
         }
     }
 
-    accumulator = accumulator % 2;
-
-    if (accumulator == 0)
+    if (zero_flag == 1)
     {
-        if (dont_care_flag == 0)
-        {
-            return (1);
-        }
-        else
-        {
-            return (2);
-        }
+        result = 0;
+    }
+    else if (dont_care_flag == 1)
+    {
+        result = 2;
     }
     else
     {
-        if (dont_care_flag == 1)
+        result = 1;
+    }
+
+    return (result);
+}
+
+/**
+ * @brief This function computesthe result of an OR logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the OR 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the OR gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ * @return int    the result of the OR gate.
+ */
+int compute_or(NODE *graph, int address)
+{
+    int fanin_counter, result, one_flag, dont_care_flag;
+
+    one_flag = 0;
+    dont_care_flag = 0;
+
+    for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
+    {
+        if (graph[graph[address].fanin[fanin_counter]].fault_value == 1)
         {
-            return (2);
+            one_flag = 1;
+        }
+        if (graph[graph[address].fanin[fanin_counter]].fault_value == 2)
+        {
+            dont_care_flag = 1;
+        }
+    }
+
+    if (one_flag == 1)
+    {
+        result = 1;
+    }
+    else if (dont_care_flag == 1)
+    {
+        result = 2;
+    }
+    else
+    {
+        result = 0;
+    }
+
+    return (result);
+}
+
+/**
+ * @brief This function computesthe result of a XOR logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the XOR 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the XOR gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ * @return int    the result of the XOR gate.
+ */
+int compute_xor(NODE *graph, int address)
+{
+    int fanin_counter, result, one_counter, dont_care_flag;
+
+    one_counter = 0;
+    dont_care_flag = 0;
+
+    for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
+    {
+        if (graph[graph[address].fanin[fanin_counter]].fault_value == 1)
+        {
+            one_counter += 1;
+        }
+        if (graph[graph[address].fanin[fanin_counter]].fault_value == 2)
+        {
+            dont_care_flag = 1;
+        }
+    }
+
+    if (dont_care_flag == 1)
+    {
+        result = 2;
+    }
+    else
+    {
+        if (one_counter % 2 == 0)
+        {
+            if (one_counter > 0)
+            {
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
         else
         {
-            return (0);
+            result = 0;
         }
     }
+
+    return (result);
 }
 
-int map_xnor(NODE *graph, LIST *fanin, int address)
+/**
+ * @brief This is a mapper function for the NOT logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the whole circuit by reference is to check 
+ *                the fanin nodes for any injected faults.
+ * @param address the address of the running node.
+ */
+void map_not(NODE *graph, int address)
 {
-    return (get_complement(map_xor(graph, fanin, address)));
-}
-
-static inline int map_buffer(int input, int address)
-{
-    return input;
-}
-
-static inline int map_not(int input, int address)
-{
-    switch (input)
+    if (graph[address].fault_value == 3)
     {
-        case 0: return 1;
-        case 1: return 0;
-        case 2: return 2;
-        default: mask_mapper_error(9, address);
+        graph[address].fault_value = complementary(graph[address].fanin[0].fault_value);
     }
+
+    graph[address].correct_value = complementary(graph[address].fanin[0].correct_value);
 }
 
-static inline int map_from(int input, int address)
+/**
+ * @brief This is a mapper function for the AND logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the AND 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the AND gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ */
+void map_and(NODE *graph, int address)
 {
-    return input;
+    int result;
+    
+    result = compute_and(graph, address);
+
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = result;
+    }
+
+    graph[address].correct_value = result;
+}
+
+/**
+ * @brief This is a mapper function for the NAND logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the NAND 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the NAND gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ *
+ * @note  The logic behind this module is to use the already coded AND
+ *        function and compute its complementary value as described by 
+ *        the corresponding table in the `docs` directory.
+ */
+void map_nand(NODE *graph, int address)
+{
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = complementary(compute_and(graph, address));
+    }
+
+    graph[address].correct_value = complementary(compute_and(graph, address));
+}
+
+/**
+ * @brief This is a mapper function for the OR logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the OR 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the OR gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ */
+void map_or(NODE *graph, int address)
+{
+    int result;
+    
+    result = compute_or(graph, address);
+
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = result;
+    }
+
+    graph[address].correct_value = result;
+}
+
+/**
+ * @brief This is a mapper function for the NOR logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the NOR 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the NOR gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ *
+ * @note  The logic behind this module is to use the already coded OR
+ *        function and compute its complementary value as described by 
+ *        the corresponding table in the `docs` directory.
+ */
+void map_nor(NODE *graph, int address)
+{
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = complementary(compute_or(graph, address));
+    }
+
+    graph[address].correct_value = complementary(compute_or(graph, address));
+}
+
+/**
+ * @brief This is a mapper function for the XOR logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the XOR 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the XOR gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ */
+void map_xor(NODE *graph, int address)
+{
+    int result;
+    
+    result = compute_xor(graph, address);
+
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = result;
+    }
+
+    graph[address].correct_value = result;
+}
+
+/**
+ * @brief This is a mapper function for the XNOR logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the circuit by reference, and not just some 
+ *                specific gates is that the input of the XNOR 
+ *                gate is dynamic in our project. That means 
+ *                that there can be an arbitrary amount of 
+ *                inputs with which the given gate is connected.
+ *                In other words, the `fanin` of the XNOR gate 
+ *                is completely dynamic.
+ * @param address the address of the running node.
+ *
+ * @note  The logic behind this module is to use the already coded XOR
+ *        function and compute its complementary value as described by 
+ *        the corresponding table in the `docs` directory.
+ */
+void map_xnor(NODE *graph, int address)
+{
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = complementary(compute_xor(graph, address));
+    }
+
+    graph[address].correct_value = complementary(compute_xor(graph, address));
+}
+
+/**
+ * @brief This is a mapper function for the BUFFER logic gate.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic. 
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the whole circuit by reference is to check 
+ *                the fanin nodes for any injected faults.
+ * @param address the address of the running node.
+ */
+void map_buffer(NODE *graph, int address)
+{
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = graph[address].fanin[0].fault_value;
+    }
+
+    graph[address].correct_value = graph[address].fanin[0].correct_value;
+}
+
+/**
+ * @brief This is a mapper function for the FROM module.
+ *        The architecture of this module follows the propagation
+ *        table protocol located at the `docs`directory. This 
+ *        table supports a three value logic. The FROM module is 
+ *        another version of the BUFFER. However, it actually 
+ *        covers the connections and is replacing the wiring.
+ * 
+ * @param graph   the current circuit. The reason for passing
+ *                the whole circuit by reference is to check 
+ *                the fanin nodes for any injected faults.
+ * @param address the address of the running node.
+ */
+void map_from(NODE *graph, int address)
+{
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = graph[address].fanin[0].fault_value;
+    }
+
+    graph[address].correct_value = graph[address].fanin[0].correct_value;
 }

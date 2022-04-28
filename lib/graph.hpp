@@ -57,6 +57,7 @@ typedef struct PATTERN_type
 {
     int *primary_input_vec;
     int num_of_primary_inputs;
+    int current_primary_input;
 } PATTERN;
 
 typedef struct PATTERN_bak_type
@@ -66,8 +67,20 @@ typedef struct PATTERN_bak_type
 
 typedef struct FAULT_type
 {
-    int address, fault;
+    int address;
+    int fault;
 } FAULT;
+
+typedef struct LOGGER_type
+{
+    char *input_vector
+    char *correct_output;
+    char *faulty_output;
+    int fault_node_address;
+    int fault_node_value;
+    int fault_flag;
+    int num_of_primary_inputs;
+} LOGGER;
 
 void insert_element(LIST **, int);
 int print_list(LIST *);
@@ -90,3 +103,27 @@ void delete_vectors(PATTERN *, int);
 
 int read_faults_file(FILE *, FAULT *);
 void print_faults(FAULT *, int);
+void inject_fault(NODE *, int, int);
+
+int complementary(int);
+int compute_and(NODE *, int);
+int compute_or(NODE *, int);
+int compute_xor(NODE *, int);
+void map_not(NODE *, int);
+void map_and(NODE *, int);
+void map_nand(NODE *, int);
+void map_or(NODE *, int);
+void map_nor(NODE *, int);
+void map_xor(NODE *, int);
+void map_xnor(NODE *, int);
+void map_buffer(NODE *, int);
+void map_from(NODE *, int);
+
+void register_simulation(NODE *, int, LOGGER *, int, int);
+void log_simulation(FILE *, LOGGER *, int);
+
+void apply_input(NODE *, int, PATTERN *, int);
+void simulate_node(NODE *, int, PATTERN *, int);
+void simulate_circuit(NODE *, PATTERN *, FAULT *, LOGGER *, int, int, int);
+void reset_circuit(NODE *, int);
+void reset_pattern(PATTERN *, int);
