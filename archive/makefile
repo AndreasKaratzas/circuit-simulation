@@ -1,6 +1,6 @@
 CC              = gcc
 DRIVER          = main.c
-SRC             = $(shell find src/*.cpp $(DRIVER))
+SRC             = $(shell find src/*.c $(DRIVER))
 INC				= lib
 TARGET          = project
 OBJ             = $(SRC:.c=.o)
