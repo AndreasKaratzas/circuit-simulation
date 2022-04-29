@@ -48,7 +48,7 @@ void store_repeat(char *str, char c, int num_of_chars)
  * @note The source string is a 2d char array that has only one 
  *       element in its second dimension.
  */
-void copy_str(char **from, char *to, int len)
+void copy_str(char *from[1], char *to, int len)
 {
     int str_idx;
 
