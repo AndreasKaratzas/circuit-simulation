@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     print_faults(faults, num_of_faults);
 
     out_file = fopen(argv[4], "r");
-    log_simulation(logs, out_file, num_of_patterns * num_of_faults);
+    log_simulation(out_file, logs, num_of_patterns * num_of_faults);
     fclose(out_file);
 
     return (0);
