@@ -1,4 +1,5 @@
 CC              = g++
+DRIVER          = main.cpp
 SRC             = $(shell find src/*.cpp $(DRIVER))
 INC				= lib
 TARGET          = project
