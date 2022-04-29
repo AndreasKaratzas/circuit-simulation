@@ -48,7 +48,7 @@ int compute_and_correct(NODE *graph, int address)
     zero_flag = 0;
     dont_care_flag = 0;
 
-    printf("%s ", graph[address].name);
+    printf("Correct: %s ", graph[address].name);
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
@@ -107,7 +107,7 @@ int compute_and_fault(NODE *graph, int address)
     zero_flag = 0;
     dont_care_flag = 0;
 
-    printf("%s ", graph[address].name);
+    printf("Faulty: %s ", graph[address].name);
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
