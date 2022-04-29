@@ -65,9 +65,6 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     copy_str(correct_val_array, logs[log_idx].correct_output, primary_output_counter);
     copy_str(fault_val_array, logs[log_idx].faulty_output, primary_output_counter);
 
-    printf("PRIM INP: %d\n", primary_input_counter);
-    printf("PRIM OUT: %d\n", primary_output_counter);
-
     logs[log_idx].index = log_idx;
     logs[log_idx].fault_address = fault_address;
     logs[log_idx].fault_value = fault_value;
@@ -116,6 +113,17 @@ void log_simulation(FILE *out_file, LOGGER *logs, int num_of_logs)
 
     for (log_count = 0; log_count < num_of_logs; log_count += 1)
     {
+
+        printf ("%d | %s | %s | %d/%d | %s | %s\n", 
+            logs[log_count].index,
+            logs[log_count].input_vector,
+            logs[log_count].correct_output,
+            logs[log_count].fault_address,
+            logs[log_count].fault_value,
+            logs[log_count].faulty_output,
+            logs[log_count].fault_detected
+        );
+
         fprintf(out_file, "%d | %s | %s | %d/%d | %s | %s\n",
             logs[log_count].index,
             logs[log_count].input_vector,
