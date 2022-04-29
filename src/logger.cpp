@@ -19,11 +19,12 @@
  */
 void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pattern_idx, int fault_idx, int fault_address, int fault_value, LOGGER *logs, int num_of_patterns, int verbose)
 {
-    int address, primary_output_counter, fault_detected, log_idx, primary_input_counter;
+    int address, primary_output_counter, fault_detected, log_idx, primary_input_counter, index;
     char correct_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS][2];
     char fault_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS][2];
-    char pattern_string[MAX_NUM_OF_PRIMARY_INPUTS][2];
+    char pattern_string[MAX_NUM_OF_PRIMARY_INPUTS];
 
+    index = 0;
     fault_detected = -1;
     primary_output_counter = 0;
     log_idx = (fault_idx * num_of_patterns) + pattern_idx;
@@ -46,11 +47,16 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
         }
     }
 
+    // for (primary_input_counter = 0; primary_input_counter < vectors[pattern_idx].num_of_primary_inputs; primary_input_counter += 1)
+    // {
+    //     bzero(pattern_string[primary_input_counter], 2);
+
+    //     pattern_string[primary_input_counter][0] = vectors[pattern_idx].primary_input_vec[primary_input_counter] + '0';
+    // }
+
     for (primary_input_counter = 0; primary_input_counter < vectors[pattern_idx].num_of_primary_inputs; primary_input_counter += 1)
     {
-        bzero(pattern_string[primary_input_counter], 2);
-
-        pattern_string[primary_input_counter][0] = vectors[pattern_idx].primary_input_vec[primary_input_counter] + '0';
+        index += snprintf(&pattern_string[index], MAX_NUM_OF_PRIMARY_INPUTS - index, "%d", vectors[pattern_idx].primary_input_vec[primary_input_counter]);
     }
 
     logs[log_idx].input_vector = (char*) malloc((primary_input_counter) * sizeof(char));
@@ -114,7 +120,7 @@ void log_simulation(FILE *out_file, LOGGER *logs, int num_of_logs)
     for (log_count = 0; log_count < num_of_logs; log_count += 1)
     {
 
-        printf ("%d\n\n| %s\n\n| %s\n\n| %d/%d | %s | %s\n", 
+        printf ("%d | %s | %s | %d/%d | %s | %s\n", 
             logs[log_count].index,
             logs[log_count].input_vector,
             logs[log_count].correct_output,
