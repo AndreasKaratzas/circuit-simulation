@@ -122,15 +122,19 @@ int read_isc_file(FILE *isc_file, NODE *graph)
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
 
-    int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line;
+    int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line, offset;
 
     num_of_circuit_elements = 0;
+    offset = 0;
 
     // initialize all nodes in graph structure
     for (node_count = 0; node_count < MAX_NUM_OF_NODES; node_count += 1)
     {
         initialize_circuit(graph, node_count);
     }
+
+    // reset node count
+    node_count = 0;
 
     // skip the comment lines
     do {
@@ -150,6 +154,15 @@ int read_isc_file(FILE *isc_file, NODE *graph)
 
         // break line into data
         sscanf(line, "%d %s %s %s %s", &address, name, type, fanout_str, fanin_str);
+
+        if (address == 1 && node_count == 0)
+        {
+            offset = -1;
+            node_count = 1;
+        }
+        
+        // update address of node with respect to the offset
+        address += offset;
 
         // fill in the Type
         strcpy(graph[address].name, name);
@@ -218,7 +231,6 @@ void initialize_circuit(NODE *graph, int address)
     graph[address].num_of_fan_ins = 0;
     graph[address].num_of_fan_outs = 0;
     graph[address].primary_output = 0;
-    graph[address].marker = 0;
 
     graph[address].correct_value = 3;
     graph[address].fault_value = 3;
@@ -297,7 +309,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
 {
     LIST *temp;
     int  address, _str_len;
-    char title[] = "| ADDRESS |        NAME |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE | MARKER |                           FANIN |                          FANOUT |";
+    char title[] = "| ADDRESS |        NAME |  TYPE | PRIMARY OUTPUT # | INPUT # | OUTPUT # | CORRECT VALUE | FAULT VALUE |                           FANIN |                          FANOUT |";
     char splitter[512];
 
     store_repeat(splitter, '-', strlen(title) - 1);
@@ -323,8 +335,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
 
             printf("%13d | %11d | %6d |",
                 graph[address].correct_value,
-                graph[address].fault_value,
-                graph[address].marker);
+                graph[address].fault_value);
 
             temp = NULL;
             temp = graph[address].fanin;
@@ -356,6 +367,10 @@ void print_circuit(NODE *graph, int num_of_nodes)
             repeat(' ', 32 - _str_len);
             printf(" |\n");
         }
+        else
+        {
+            printf("CRITICAL ERROR: `print_circuit()` parsed node of type `0` [node.address: %d]\n", address);
+        }
     }
 
     printf("%s\n", splitter);
@@ -379,7 +394,6 @@ void delete_circuit(NODE *graph, int n_elements)
         graph[address].num_of_fan_ins = 0;
         graph[address].num_of_fan_outs = 0;
         graph[address].primary_output = 0;
-        graph[address].marker = 0;
         graph[address].correct_value = 0;
         graph[address].fault_value = 0;
 

@@ -49,7 +49,7 @@ typedef struct NODE_type
 {
     char name[MAX_NODE_ALIAS_LEN];
     int  type, num_of_fan_ins, num_of_fan_outs, primary_output;
-    int  marker, correct_value, fault_value;
+    int  correct_value, fault_value;
     LIST *fanin, *fanout;
 } NODE;
 
