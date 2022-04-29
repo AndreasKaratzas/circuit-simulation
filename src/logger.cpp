@@ -79,7 +79,7 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
         faults[fault_idx].address, 
         faults[fault_idx].fault, 
         fault_val_array, 
-        logs[log_idx].fault_detected
+        fault_detected
     );
 }
 
