@@ -35,6 +35,9 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
             {
                 fault_detected += 1;
             }
+
+            bzero(correct_val_array[primary_output_counter], 2);
+            bzero(fault_val_array[primary_output_counter], 2);
             
             correct_val_array[primary_output_counter][0] = graph[address].correct_value + '0';
             fault_val_array[primary_output_counter][0] = graph[address].fault_value + '0';
@@ -44,7 +47,9 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
 
     for (primary_input_counter = 0; primary_input_counter < vectors[pattern_idx].num_of_primary_inputs; primary_input_counter += 1)
     {
-        pattern_string[primary_input_counter][0] = vectors[pattern_idx].primary_input_vec[primary_input_counter];
+        bzero(pattern_string[primary_input_counter], 2);
+        
+        pattern_string[primary_input_counter][0] = vectors[pattern_idx].primary_input_vec[primary_input_counter] + '0';
     }
 
     logs[log_idx].input_vector = (char*) malloc((primary_input_counter + 1) * sizeof(char));
