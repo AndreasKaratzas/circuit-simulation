@@ -325,7 +325,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
     printf("%s\n", title);
     printf("%s\n", splitter);
 
-    for (address = 0; address <= num_of_nodes; address += 1)
+    for (address = 0; address < num_of_nodes; address += 1)
     {
         if (graph[address].type != 0)
         {
