@@ -93,7 +93,7 @@ void delete_circuit(NODE *, int);
 int read_vec_file_bak(FILE *, PATTERN *);
 
 void unknown_handler(int);
-void from_handler(NODE *, char *, int, int);
+void from_handler(NODE *, char *, int);
 void gate_handler(FILE *, NODE *, int, int, int*);
 
 void map_pattern(char *, int *, int);

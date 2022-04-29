@@ -122,9 +122,8 @@ int read_isc_file(FILE *isc_file, NODE *graph, int *node_dictionary)
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
 
-    int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line, offset;
+    int node_count, address, fanout, fanin, _branch_line, offset;
 
-    num_of_circuit_elements = 0;
     offset = 0;
 
     // initialize all nodes in graph structure
@@ -183,11 +182,6 @@ int read_isc_file(FILE *isc_file, NODE *graph, int *node_dictionary)
             strcpy(from, fanout_str);
         }
 
-        if (address >= num_of_circuit_elements)
-        {
-            num_of_circuit_elements = address + 1;
-        }
-
         graph[address].num_of_fan_outs = fanout;
         graph[address].num_of_fan_ins = fanin;
 
@@ -209,7 +203,7 @@ int read_isc_file(FILE *isc_file, NODE *graph, int *node_dictionary)
             case XNOR : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
             case BUFF : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
             case NOT  : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
-            case FROM : from_handler(graph, from, num_of_circuit_elements, address); break;
+            case FROM : from_handler(graph, from, address); break;
         }
 
         bzero(line, strlen(line));
@@ -218,7 +212,7 @@ int read_isc_file(FILE *isc_file, NODE *graph, int *node_dictionary)
         node_count += 1;
     }
 
-    return (num_of_circuit_elements);
+    return (node_count);
 }
 
 /**
