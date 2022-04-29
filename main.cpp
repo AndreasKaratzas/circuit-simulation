@@ -35,6 +35,8 @@ int main(int argc, char *argv[])
     fclose(faults_file);
     print_faults(faults, num_of_faults);
 
+    simulate_circuit(circuit, vectors, faults, logs, num_of_nodes, num_of_patterns, num_of_faults);
+
     out_file = fopen(argv[4], "ab+");
     log_simulation(out_file, logs, num_of_patterns * num_of_faults);
     fclose(out_file);
