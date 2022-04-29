@@ -59,5 +59,6 @@ void print_faults(FAULT *faults, int num_of_faults)
  */
 void inject_fault(NODE *graph, int address, int fault)
 {
+    printf("Injected fault of type stuck-at %d at node %s\n", fault, graph[address].name);
     graph[address].fault_value = fault;
 }
