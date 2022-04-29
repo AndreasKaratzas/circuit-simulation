@@ -87,7 +87,7 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
                 print_circuit(graph, num_of_nodes);
             }
 
-            register_simulation(graph, num_of_nodes, vectors, pattern_idx, fault_idx, node_dictionary[faults[fault_idx].address], faults[fault_idx].fault, logs, num_of_patterns);
+            register_simulation(graph, num_of_nodes, vectors, pattern_idx, fault_idx, node_dictionary[faults[fault_idx].address], faults[fault_idx].fault, logs, num_of_patterns, verbose);
         }
     }
 }
