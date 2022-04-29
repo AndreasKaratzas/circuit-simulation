@@ -49,18 +49,20 @@ void from_handler(NODE *graph, char *name, int current_node_count, int address)
  *        of each node in the given graph (circuit) with
  *        respect to the given gate.
  *
- * @param isc_file the given `ISC` file
- * @param graph    the (at that time) compiled graph structured
- * @param fanin    the fanin of the gate
- * @param address  the given circuit node address
+ * @param isc_file        the given `ISC` file
+ * @param graph           the (at that time) compiled graph structured
+ * @param fanin           the fanin of the gate
+ * @param address         the given circuit node address
+ * @param node_dictionary a dictionary that maps the original node address to the compressed one
  */
-void gate_handler(FILE *isc_file, NODE *graph, int fanin, int address)
+void gate_handler(FILE *isc_file, NODE *graph, int fanin, int address, int *node_dictionary)
 {
     int _branch_line, input_address;
 
     for (_branch_line = 1; _branch_line <= fanin; _branch_line += 1)
     {
         fscanf(isc_file, "%d", &input_address);
+        input_address = node_dictionary[input_address];
         insert_element(&graph[address].fanin, input_address);
         insert_element(&graph[input_address].fanout, address);
     }

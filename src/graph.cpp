@@ -121,6 +121,7 @@ int read_isc_file(FILE *isc_file, NODE *graph)
     char fanin_str[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
+    int node_dictionary[MAX_NUM_OF_NODES];
 
     int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line, offset;
 
@@ -159,6 +160,9 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         {
             offset = node_count - address;
         }
+
+        // this array is used to map the nodes in the `fanin` column of the `isc` file
+        node_dictionary[address] = address + offset;
         
         // update address of node with respect to the offset
         address += offset;
@@ -198,14 +202,14 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         {
             case 0    : unknown_handler(address);
             case INPT : break;
-            case AND  : gate_handler(isc_file, graph, fanin, address); break;
-            case NAND : gate_handler(isc_file, graph, fanin, address); break;
-            case OR   : gate_handler(isc_file, graph, fanin, address); break;
-            case NOR  : gate_handler(isc_file, graph, fanin, address); break;
-            case XOR  : gate_handler(isc_file, graph, fanin, address); break;
-            case XNOR : gate_handler(isc_file, graph, fanin, address); break;
-            case BUFF : gate_handler(isc_file, graph, fanin, address); break;
-            case NOT  : gate_handler(isc_file, graph, fanin, address); break;
+            case AND  : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
+            case NAND : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
+            case OR   : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
+            case NOR  : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
+            case XOR  : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
+            case XNOR : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
+            case BUFF : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
+            case NOT  : gate_handler(isc_file, graph, fanin, address, node_dictionary); break;
             case FROM : from_handler(graph, from, num_of_circuit_elements, address); break;
         }
 
