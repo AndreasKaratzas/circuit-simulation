@@ -67,13 +67,14 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
 
         for (pattern_idx = 0; pattern_idx < num_of_patterns; pattern_idx += 1)
         {
+            reset_circuit(graph, num_of_nodes);
+            
             for (address = 0; address < num_of_nodes; address += 1)
             {
                 simulate_node(graph, address, vectors, pattern_idx);
             }
             
             register_simulation(graph, num_of_nodes, vectors, pattern_idx, faults, fault_idx, logs, num_of_patterns);
-            reset_circuit(graph, num_of_nodes);
         }
     }
 }

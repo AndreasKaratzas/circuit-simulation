@@ -27,6 +27,10 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     primary_output_counter = 0;
     log_idx = (fault_idx * num_of_patterns) + pattern_idx;
 
+    bzero(pattern_string, strlen(pattern_string));
+    bzero(correct_val_array, strlen(correct_val_array));
+    bzero(fault_val_array, strlen(fault_val_array));
+
     for (address = 0; address < num_of_nodes; address += 1)
     {
         if (graph[address].primary_output == 1)
@@ -46,10 +50,6 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     {
         pattern_string[primary_input_counter] = vectors[pattern_idx].primary_input_vec[primary_input_counter];
     }
-
-    correct_val_array[primary_output_counter] = '\0';
-    fault_val_array[primary_output_counter] = '\0';
-    pattern_string[primary_input_counter] = '\0';
 
     logs[log_idx].input_vector = (char*) malloc(strlen(pattern_string) * sizeof(char));
     logs[log_idx].correct_output = (char*) malloc(strlen(correct_val_array) * sizeof(char));
