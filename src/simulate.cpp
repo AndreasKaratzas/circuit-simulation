@@ -67,11 +67,11 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
     for (fault_idx = 0; fault_idx < num_of_faults; fault_idx += 1)
     {
         reset_pattern(vectors, num_of_patterns);
-        inject_fault(graph, node_dictionary[faults[fault_idx].address], faults[fault_idx].fault);
 
         for (pattern_idx = 0; pattern_idx < num_of_patterns; pattern_idx += 1)
         {
             reset_circuit(graph, num_of_nodes);
+            inject_fault(graph, node_dictionary[faults[fault_idx].address], faults[fault_idx].fault);
 
             for (address = 0; address < num_of_nodes; address += 1)
             {
