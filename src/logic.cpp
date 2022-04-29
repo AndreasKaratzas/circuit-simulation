@@ -52,7 +52,7 @@ int compute_and_correct(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        printf("[%s %d]", graph[graph[address].fanin[fanin_counter].id].name, graph[graph[address].fanin[fanin_counter].id].correct_value);
+        printf(" id (%d): [%s %d]", graph[address].fanin[fanin_counter].id, graph[graph[address].fanin[fanin_counter].id].name, graph[graph[address].fanin[fanin_counter].id].correct_value);
 
         if (graph[graph[address].fanin[fanin_counter].id].correct_value == 0)
         {
@@ -111,7 +111,7 @@ int compute_and_fault(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        printf("[%s %d]", graph[graph[address].fanin[fanin_counter].id].name, graph[graph[address].fanin[fanin_counter].id].correct_value);
+        printf(" id (%d): [%s %d]", graph[address].fanin[fanin_counter].id, graph[graph[address].fanin[fanin_counter].id].name, graph[graph[address].fanin[fanin_counter].id].correct_value);
 
         if (graph[graph[address].fanin[fanin_counter].id].fault_value == 0)
         {
