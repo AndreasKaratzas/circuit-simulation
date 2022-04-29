@@ -56,4 +56,6 @@ void copy_str(char from[][2], char *to, int len)
     {
         to[str_idx] = from[str_idx][0];
     }
+
+    to[str_idx] = '\0';
 }
