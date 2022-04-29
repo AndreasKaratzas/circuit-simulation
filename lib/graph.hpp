@@ -103,7 +103,7 @@ void delete_vectors(PATTERN *, int);
 
 int read_faults_file(FILE *, FAULT *);
 void print_faults(FAULT *, int);
-void inject_fault(NODE *, int, int);
+void inject_fault(NODE *, int, int, int);
 
 int complementary(int);
 int compute_and_correct(NODE *, int);

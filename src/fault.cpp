@@ -56,9 +56,14 @@ void print_faults(FAULT *faults, int num_of_faults)
  * @param graph   the graph that represents a circuit
  * @param address the address of the node to be injected with the fault
  * @param fault   the desired (stuck-at) fault value
+ * @param verbose this parameter can either take value 0 or 1 indicating the preference of the user to regularly log simulation information to the terminal
  */
-void inject_fault(NODE *graph, int address, int fault)
+void inject_fault(NODE *graph, int address, int fault, int verbose)
 {
-    printf("Injected fault of type stuck-at %d at node %s\n", fault, graph[address].name);
+    if (verbose == 1)
+    {
+        printf("Injected fault of type stuck-at %d at node %s\n", fault, graph[address].name);
+    }
+
     graph[address].fault_value = fault;
 }

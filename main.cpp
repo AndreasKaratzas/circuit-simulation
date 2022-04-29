@@ -44,8 +44,12 @@ int main(int argc, char *argv[])
     log_simulation(out_file, logs, num_of_patterns * num_of_faults);
     fclose(out_file);
 
-    print_vectors(vectors, num_of_patterns);
-    print_faults(faults, num_of_faults);
+    if (verbose == 1)
+    {
+        print_vectors(vectors, num_of_patterns);
+        print_faults(faults, num_of_faults);
+    }
+
     delete_circuit(circuit, MAX_NUM_OF_NODES);
     delete_vectors(vectors, num_of_patterns);
 
