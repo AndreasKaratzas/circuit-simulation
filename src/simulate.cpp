@@ -58,6 +58,8 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
 {
     int address, pattern_idx, fault_idx;
 
+    printf("INDEX | INPUT VECTOR | CORRECT OUTPUT | FAULT INJECTED | FAULTY OUTPUT | FAULT DETECTED\n");
+
     for (fault_idx = 0; fault_idx < num_of_faults; fault_idx += 1)
     {
         reset_pattern(vectors, num_of_patterns);

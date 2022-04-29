@@ -71,6 +71,16 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     {
         sprintf(logs[log_idx].fault_detected, "NO");
     }
+
+    printf("%d | %s | %s | %d/%d | %s | %d\n", 
+        log_idx, 
+        pattern_string, 
+        correct_val_array, 
+        faults[fault_idx].address, 
+        faults[fault_idx].fault, 
+        fault_val_array, 
+        logs[log_idx].fault_detected
+    );
 }
 
 /**
