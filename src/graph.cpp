@@ -183,9 +183,9 @@ int read_isc_file(FILE *isc_file, NODE *graph, int *node_dictionary)
             strcpy(from, fanout_str);
         }
 
-        if (address > num_of_circuit_elements)
+        if (address >= num_of_circuit_elements)
         {
-            num_of_circuit_elements = address;
+            num_of_circuit_elements = address + 1;
         }
 
         graph[address].num_of_fan_outs = fanout;
