@@ -53,14 +53,12 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     }
 
     logs[log_idx].input_vector = (char*) malloc((primary_input_counter) * sizeof(char));
-    logs[log_idx].correct_output = (char*) malloc((primary_output_counter) * sizeof(char));
-    logs[log_idx].faulty_output = (char*) malloc((primary_output_counter) * sizeof(char));
+    logs[log_idx].correct_output = (char*) malloc((primary_output_counter + 1) * sizeof(char));
+    logs[log_idx].faulty_output = (char*) malloc((primary_output_counter + 1) * sizeof(char));
 
     bzero(logs[log_idx].input_vector, primary_input_counter);
-    bzero(logs[log_idx].correct_output, primary_output_counter);
-    bzero(logs[log_idx].faulty_output, primary_output_counter);
-
-    printf("Prim Out CNTR: %d\n", primary_output_counter);
+    bzero(logs[log_idx].correct_output, primary_output_counter + 1);
+    bzero(logs[log_idx].faulty_output, primary_output_counter + 1);
 
     copy_str(pattern_string, logs[log_idx].input_vector, primary_input_counter);
     copy_str(correct_val_array, logs[log_idx].correct_output, primary_output_counter);

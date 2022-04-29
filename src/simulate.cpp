@@ -11,8 +11,12 @@
  */
 void apply_input(NODE *graph, int address, PATTERN *vectors, int pattern_idx)
 {
+    if (graph[address].fault_value == 3)
+    {
+        graph[address].fault_value = vectors[pattern_idx].primary_input_vec[vectors[pattern_idx].current_primary_input];
+    }
+
     graph[address].correct_value = vectors[pattern_idx].primary_input_vec[vectors[pattern_idx].current_primary_input];
-    graph[address].fault_value = vectors[pattern_idx].primary_input_vec[vectors[pattern_idx].current_primary_input];
     vectors[pattern_idx].current_primary_input += 1;
 }
 
