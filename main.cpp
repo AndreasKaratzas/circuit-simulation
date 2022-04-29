@@ -21,25 +21,26 @@ int main(int argc, char *argv[])
     isc_file = fopen(argv[1], "r");
     num_of_nodes = read_isc_file(isc_file, circuit);
     fclose(isc_file);
-    print_circuit(circuit, num_of_nodes);
-    delete_circuit(circuit, MAX_NUM_OF_NODES);
 
     vec_file = fopen(argv[2], "r");
     num_of_patterns = read_vec_file(vec_file, vectors);
     fclose(vec_file);
-    print_vectors(vectors, num_of_patterns);
-    delete_vectors(vectors, num_of_patterns);
 
     faults_file = fopen(argv[3], "r");
     num_of_faults = read_faults_file(faults_file, faults);
     fclose(faults_file);
-    print_faults(faults, num_of_faults);
 
     simulate_circuit(circuit, vectors, faults, logs, num_of_nodes, num_of_patterns, num_of_faults);
 
     out_file = fopen(argv[4], "ab+");
     log_simulation(out_file, logs, num_of_patterns * num_of_faults);
     fclose(out_file);
+
+    print_circuit(circuit, num_of_nodes);
+    print_vectors(vectors, num_of_patterns);
+    print_faults(faults, num_of_faults);
+    delete_circuit(circuit, MAX_NUM_OF_NODES);
+    delete_vectors(vectors, num_of_patterns);
 
     return (0);
 }
