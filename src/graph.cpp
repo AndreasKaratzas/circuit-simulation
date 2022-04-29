@@ -333,7 +333,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
                 graph[address].num_of_fan_ins,
                 graph[address].num_of_fan_outs);
 
-            printf("%13d | %11d | %6d |",
+            printf("%13d | %11d |",
                 graph[address].correct_value,
                 graph[address].fault_value);
 
