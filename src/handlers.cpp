@@ -3,7 +3,7 @@
 
 /**
  * @brief Handles an unknown address type by logging an error and exiting.
- * 
+ *
  * @param address the node address in the graph
  */
 void unknown_handler(int address)
@@ -14,23 +14,23 @@ void unknown_handler(int address)
 
 /**
  * @brief Handles a `FROM` gate type. This function updates the `fanin`
- *        and `fanout` of each node in the given graph (circuit) with 
+ *        and `fanout` of each node in the given graph (circuit) with
  *        respect to the given gate.
- * 
+ *
  * @param graph              the given circuit
  * @param name               the name of the `FROM` logic gate
- * @param current_node_count the current circuit node count 
+ * @param current_node_count the current circuit node count
  * @param address            the address corresponding to the `FROM` logic gate
  */
 void from_handler(NODE *graph, char *name, int current_node_count, int address)
 {
     int _branch_line, input_address;
 
-    for(_branch_line = current_node_count; _branch_line > 0; _branch_line -= 1)
+    for (_branch_line = current_node_count; _branch_line > 0; _branch_line -= 1)
     {
-        if(graph[_branch_line].type != 0)
+        if (graph[_branch_line].type != 0)
         {
-            if(strcmp(graph[_branch_line].name, name) == 0)
+            if (strcmp(graph[_branch_line].name, name) == 0)
             {
                 input_address = _branch_line;
                 break;
@@ -48,7 +48,7 @@ void from_handler(NODE *graph, char *name, int current_node_count, int address)
  *        This function updates the `fanin` and `fanout`
  *        of each node in the given graph (circuit) with
  *        respect to the given gate.
- * 
+ *
  * @param isc_file the given `ISC` file
  * @param graph    the (at that time) compiled graph structured
  * @param fanin    the fanin of the gate
@@ -56,9 +56,9 @@ void from_handler(NODE *graph, char *name, int current_node_count, int address)
  */
 void gate_handler(FILE *isc_file, NODE *graph, int fanin, int address)
 {
-    int _branch_line, input_address; 
+    int _branch_line, input_address;
 
-    for(_branch_line = 1; _branch_line <= fanin; _branch_line += 1)
+    for (_branch_line = 1; _branch_line <= fanin; _branch_line += 1)
     {
         fscanf(isc_file, "%d", &input_address);
         insert_element(&graph[address].fanin, input_address);

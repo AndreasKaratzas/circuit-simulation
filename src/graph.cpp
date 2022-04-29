@@ -12,7 +12,7 @@ void insert_element(LIST **l, int x)
 {
     LIST *p, *tl;
 
-    if ((p = (LIST *)malloc(sizeof(LIST))) == NULL)
+    if ( ( p = (LIST *)malloc(sizeof(LIST)) ) == NULL )
     {
         printf("LIST: Out of memory\n");
         exit(1);
@@ -22,7 +22,7 @@ void insert_element(LIST **l, int x)
         p->id = x;
         p->next = NULL;
 
-        if(*l == NULL)
+        if (*l == NULL)
         {
             *l = p;
             return;
@@ -31,14 +31,14 @@ void insert_element(LIST **l, int x)
         tl = NULL;
         tl = *l;
 
-        while(tl != NULL)
+        while (tl != NULL)
         {
-            if(tl->id == x)
+            if (tl->id == x)
             {
                 break;
             }
 
-            if(tl->next == NULL)
+            if (tl->next == NULL)
             {
                 tl->next = p;
             }
@@ -65,7 +65,7 @@ int print_list(LIST *l)
 
     temp = l;
     str_len = 0;
-    while(temp != NULL)
+    while (temp != NULL)
     {
         sprintf(str, "%d", temp->id);
         str_len = str_len + strlen(str) + 1;
@@ -87,14 +87,14 @@ void delete_element(LIST **l)
 {
     LIST *temp = NULL;
 
-    if(*l == NULL)
+    if (*l == NULL)
     {
         return;
     }
 
     temp=(*l);
 
-    while((*l) != NULL)
+    while ((*l) != NULL)
     {
         temp = temp->next;
         free(*l);
@@ -127,7 +127,7 @@ int read_isc_file(FILE *isc_file, NODE *graph)
     num_of_circuit_elements = 0;
 
     // initialize all nodes in graph structure
-    for(node_count = 0; node_count < MAX_NUM_OF_NODES; node_count += 1)
+    for (node_count = 0; node_count < MAX_NUM_OF_NODES; node_count += 1)
     {
         initialize_circuit(graph, node_count);
     }
@@ -135,10 +135,10 @@ int read_isc_file(FILE *isc_file, NODE *graph)
     // skip the comment lines
     do {
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, isc_file);
-    } while(line[0] == '*');
+    } while (line[0] == '*');
 
     // read line by line
-    while( !feof(isc_file) )
+    while ( !feof(isc_file) )
     {
 
         // initialize temporary strings
@@ -156,7 +156,7 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         graph[address].type = map_logic_gate(type);
 
         // fill in fanin and fanout numbers
-        if(graph[address].type != FROM)
+        if (graph[address].type != FROM)
         {
             fanout = atoi(fanout_str);
             fanin = atoi(fanin_str);
@@ -168,7 +168,7 @@ int read_isc_file(FILE *isc_file, NODE *graph)
             strcpy(from, fanout_str);
         }
 
-        if(address > num_of_circuit_elements)
+        if (address > num_of_circuit_elements)
         {
             num_of_circuit_elements = address;
         }
@@ -176,7 +176,7 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         graph[address].num_of_fan_outs = fanout;
         graph[address].num_of_fan_ins = fanin;
 
-        if(fanout == 0)
+        if (fanout == 0)
         {
             graph[address].primary_output = 1;
         }
@@ -309,9 +309,9 @@ void print_circuit(NODE *graph, int num_of_nodes)
     printf("%s\n", title);
     printf("%s\n", splitter);
 
-    for(address = 0; address <= num_of_nodes; address += 1)
+    for (address = 0; address <= num_of_nodes; address += 1)
     {
-        if(graph[address].type != 0)
+        if (graph[address].type != 0)
         {
             printf("| %7d | %11s | %4d  | %16d | %7d | %8d | ",
                 address,
@@ -329,7 +329,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
             temp = NULL;
             temp = graph[address].fanin;
 
-            if(temp != NULL)
+            if (temp != NULL)
             {
                 _str_len = print_list(temp);
             }
@@ -344,7 +344,7 @@ void print_circuit(NODE *graph, int num_of_nodes)
             temp = NULL;
             temp = graph[address].fanout;
 
-            if(temp != NULL)
+            if (temp != NULL)
             {
                 _str_len = print_list(temp);
             }
@@ -373,7 +373,7 @@ void delete_circuit(NODE *graph, int n_elements)
 {
     int address;
 
-    for(address = 0; address < n_elements; address += 1)
+    for (address = 0; address < n_elements; address += 1)
     {
         graph[address].type = 0;
         graph[address].num_of_fan_ins = 0;
@@ -383,17 +383,17 @@ void delete_circuit(NODE *graph, int n_elements)
         graph[address].correct_value = 0;
         graph[address].fault_value = 0;
 
-        if(graph[address].type != 0)
+        if (graph[address].type != 0)
         {
             bzero(graph[address].name, MAX_NODE_ALIAS_LEN);
 
-            if(graph[address].fanin != NULL)
+            if (graph[address].fanin != NULL)
             {
                 delete_element(&graph[address].fanin);
                 graph[address].fanin = NULL;
             }
 
-            if(graph[address].fanout != NULL)
+            if (graph[address].fanout != NULL)
             {
                 delete_element(&graph[address].fanout);
                 graph[address].fanout = NULL;
@@ -420,12 +420,12 @@ int read_vec_file_bak(FILE *vec_file, PATTERN_bak *vector_bak)
 
     num_of_ins = 0;
 
-    while( !feof(vec_file) )
+    while ( !feof(vec_file) )
     {
         bzero(token, MAX_NUM_OF_PRIMARY_INPUTS);
         fgets(token, MAX_NUM_OF_PRIMARY_INPUTS, vec_file);
 
-        if(*token != '\0')
+        if (*token != '\0')
         {
             bzero(vector_bak[num_of_ins].primary_input_vec, MAX_NUM_OF_PRIMARY_INPUTS);
             strcpy(vector_bak[num_of_ins].primary_input_vec, token);

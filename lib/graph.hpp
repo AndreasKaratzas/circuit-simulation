@@ -38,7 +38,7 @@
 #define FROM 10             // STEM BRANCH
 
 
-typedef struct LIST_type 
+typedef struct LIST_type
 {
     int id;                 // id of loaded element
     struct LIST_type *next; // pointer to next element (default: NULL)
@@ -73,13 +73,13 @@ typedef struct FAULT_type
 
 typedef struct LOGGER_type
 {
-    char *input_vector
+    int index;
+    char *input_vector;
     char *correct_output;
+    int fault_address;
+    int fault_value;
     char *faulty_output;
-    int fault_node_address;
-    int fault_node_value;
-    int fault_flag;
-    int num_of_primary_inputs;
+    char fault_detected[4];
 } LOGGER;
 
 void insert_element(LIST **, int);
@@ -106,9 +106,12 @@ void print_faults(FAULT *, int);
 void inject_fault(NODE *, int, int);
 
 int complementary(int);
-int compute_and(NODE *, int);
-int compute_or(NODE *, int);
-int compute_xor(NODE *, int);
+int compute_and_correct(NODE *, int);
+int compute_and_fault(NODE *, int);
+int compute_or_correct(NODE *, int);
+int compute_or_fault(NODE *, int);
+int compute_xor_correct(NODE *, int);
+int compute_xor_fault(NODE *, int);
 void map_not(NODE *, int);
 void map_and(NODE *, int);
 void map_nand(NODE *, int);
@@ -119,7 +122,7 @@ void map_xnor(NODE *, int);
 void map_buffer(NODE *, int);
 void map_from(NODE *, int);
 
-void register_simulation(NODE *, int, LOGGER *, int, int);
+void register_simulation(NODE *, int, PATTERN *, int, FAULT *, int, LOGGER *, int);
 void log_simulation(FILE *, LOGGER *, int);
 
 void apply_input(NODE *, int, PATTERN *, int);

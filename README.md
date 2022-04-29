@@ -51,7 +51,7 @@ Implement a logic simulation tool in `C` language for combinational circuits. Lo
 
 12. Log whether the fault is detected or not in the output file.
 
-13. Repeat the steps 10 - 12 for each fault in the `FAULT` structure for the single input pattern. 
+13. Repeat the steps 10 - 12 for each fault in the `FAULT` structure for the single input pattern.
 
 14. Repeat steps 7 - 12 for each input vector in the `PATTERN` structure of the given circuit.
 
@@ -81,7 +81,7 @@ There is another kind of line, the _fanin_ line. The fanin line provides a list 
      1     8
 ```
 
-Looking at the node with address 10 in the `c17` example, we see it has a fanin of 2 and the two fanin addresses are 1 and 8. The node with address 1 is a primary input and the node with address 8 is a fanout branch (type `from`). 
+Looking at the node with address 10 in the `c17` example, we see it has a fanin of 2 and the two fanin addresses are 1 and 8. The node with address 1 is a primary input and the node with address 8 is a fanout branch (type `from`).
 
 The last kind of lines is the _fanout_ branch line. Fanout branch lines are similar to node lines in that they have an address, a name and a type (always from), but the information is associated with a single fanout branch of a fanout stem. Fanout branch lines must appear immediately after the node line (and its fanin line) with which they are associated. Since fanout branches always have a fanout and a fanin of one, this information is not listed as with a node line. Instead, the name of the fanout stem is given after the type. This is redundant information, but, nevertheless, it is part of the format. As a consequence of having a fanout of one, fanout branches may never represent a primary output since primary outputs always have a fanout of zero. Also, note that nodes with a fanout less than or equal to one do not have fanout branches. If the fanout is greater than one, the number of fanout branch lines will equal the fanout reported on the node line. Example:
 
@@ -91,12 +91,12 @@ More information on the ISCAS '85 benchmark can be found [here](https://davidkeb
 
 ## TODO
 
-- [ ] split logic functions into _fault_ and _correct_
-- [ ] update docstrings in `logic.cpp` with respect to the changes described above
-- [ ] update the function list inside `graph.hpp`
-- [ ] implement the two `logger.cpp` functions
-- [ ] spaces between all flow control routines
-- [ ] ask about the unknown command line argument
-- [ ] trim all whitespace from all files
-- [ ] ask about the project deadline extension 
+- [x] split logic functions into _fault_ and _correct_
+- [x] update docstrings in `logic.cpp` with respect to the changes described above
+- [x] update the function list inside `graph.hpp`
+- [x] implement the two `logger.cpp` functions
+- [x] spaces between all flow control routines
+- [x] ask about the unknown command line argument
+- [x] trim all whitespace from all files
+- [x] ask about the project deadline extension
 - [ ] "typecast" the whole project from C++ to C

@@ -3,7 +3,7 @@
 
 /**
  * @brief The driver function.
- * 
+ *
  * @param argc number of terminal arguments/options
  * @param argv the string argument vector
  * @return int the execution status as per OS protocol
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     PATTERN vectors[MAX_NUM_OF_TEST_VECTORS];
     FAULT faults[MAX_NUM_OF_STUCK_AT_FAULTS];
     LOGGER logs[MAX_NUM_OF_TEST_VECTORS * MAX_NUM_OF_STUCK_AT_FAULTS];
-    
+
     isc_file = fopen(argv[1], "r");
     num_of_nodes = read_isc_file(isc_file, circuit);
     fclose(isc_file);

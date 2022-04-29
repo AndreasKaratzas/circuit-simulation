@@ -3,11 +3,11 @@
 
 /**
  * @brief This function takes a primary input node and properly initializes it.
- * 
+ *
  * @param graph       the graph representing the running circuit
  * @param address     the address of the primary input node inside the graph
  * @param vectors     the test vectors strored in a `PATTERN` structure
- * @param pattern_idx the index of the pattern that is being applied 
+ * @param pattern_idx the index of the pattern that is being applied
  */
 void apply_input(NODE *graph, int address, PATTERN *vectors, int pattern_idx)
 {
@@ -17,14 +17,14 @@ void apply_input(NODE *graph, int address, PATTERN *vectors, int pattern_idx)
 }
 
 /**
- * @brief This function is the mapper driver. From here, every node is mapped to its 
- *        corresponding gate. Inside each gate mapper, the circuit is updated according 
+ * @brief This function is the mapper driver. From here, every node is mapped to its
+ *        corresponding gate. Inside each gate mapper, the circuit is updated according
  *        to the injected faults and the inputs applied.
- * 
+ *
  * @param graph       the graph representing the running circuit
  * @param address     the address of the primary input node inside the graph
  * @param vectors     the test vectors strored in a `PATTERN` structure
- * @param pattern_idx the index of the pattern that is being applied 
+ * @param pattern_idx the index of the pattern that is being applied
  */
 void simulate_node(NODE *graph, int address, PATTERN *vectors, int pattern_idx)
 {
@@ -45,7 +45,7 @@ void simulate_node(NODE *graph, int address, PATTERN *vectors, int pattern_idx)
 
 /**
  * @brief This function simulates all {fault, test vector} combinations.
- * 
+ *
  * @param graph           the graph representing the running circuit
  * @param vectors         the test vectors strored in a `PATTERN` structure
  * @param faults          the faults which are to be injected
@@ -70,7 +70,7 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
                 simulate_node(graph, address, vectors, pattern_idx);
             }
 
-            register_simulation(graph, num_of_nodes, logs, fault_idx, pattern_idx);
+            register_simulation(graph, num_of_nodes, logs, fault_idx, pattern_idx, num_of_patterns);
             reset_circuit(graph, num_of_nodes);
         }
     }
@@ -79,7 +79,7 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
 /**
  * @brief This function resets the node registers used during every {fault, test vector}
  *        simulation.
- * 
+ *
  * @param graph        the graph representing the running circuit
  * @param num_of_nodes the total number of nodes
  */
@@ -97,7 +97,7 @@ void reset_circuit(NODE *graph, int num_of_nodes)
 /**
  * @brief This function resets the test vector registers used during every {fault, test vector}
  *        simulation.
- * 
+ *
  * @param vectors         the test vectors strored in a `PATTERN` structure
  * @param num_of_patterns the total number of test vectors
  */
