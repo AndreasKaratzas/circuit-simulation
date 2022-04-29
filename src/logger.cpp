@@ -68,7 +68,7 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
         sprintf(logs[log_idx].fault_detected, "NO");
     }
 
-    printf("%d | %s | %s | %d/%d | %s | %d\n", 
+    printf("%d | %s | %s | %d/%d | %s | %s\n", 
         logs[log_idx].index, 
         logs[log_idx].input_vector, 
         logs[log_idx].correct_output, 
