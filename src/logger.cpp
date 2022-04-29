@@ -16,7 +16,7 @@
  * @param logs            the log structure which will be later used to output the simulation results
  * @param num_of_patterns the total number of test vectors
  */
-void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pattern_idx, int fault_address, int fault_value, LOGGER *logs, int num_of_patterns)
+void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pattern_idx, int fault_idx, int fault_address, int fault_value, LOGGER *logs, int num_of_patterns)
 {
     int address, primary_output_counter, fault_detected, log_idx, primary_input_counter;
     char correct_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS][1];
