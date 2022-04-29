@@ -97,6 +97,6 @@ More information on the ISCAS '85 benchmark can be found [here](https://davidkeb
 - [x] implement the two `logger.cpp` functions
 - [x] spaces between all flow control routines
 - [x] ask about the unknown command line argument
-- [x] trim all whitespace from all files
+- [ ] trim all whitespace from all files
 - [x] ask about the project deadline extension
 - [ ] "typecast" the whole project from C++ to C

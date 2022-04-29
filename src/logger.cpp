@@ -19,19 +19,15 @@
 void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pattern_idx, FAULT *faults, int fault_idx, LOGGER *logs, int num_of_patterns)
 {
     int address, primary_output_counter, fault_detected, log_idx, primary_input_counter;
-    char correct_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS];
-    char fault_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS];
-    char pattern_string[MAX_NUM_OF_PRIMARY_INPUTS];
+    char correct_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS][1];
+    char fault_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS][1];
+    char pattern_string[MAX_NUM_OF_PRIMARY_INPUTS][1];
 
     fault_detected = -1;
     primary_output_counter = 0;
     log_idx = (fault_idx * num_of_patterns) + pattern_idx;
 
-    bzero(pattern_string, strlen(pattern_string));
-    bzero(correct_val_array, strlen(correct_val_array));
-    bzero(fault_val_array, strlen(fault_val_array));
-
-    for (address = 1; address <= num_of_nodes; address += 1)
+    for (address = 0; address < num_of_nodes; address += 1)
     {
         if (graph[address].primary_output == 1)
         {
@@ -39,25 +35,25 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
             {
                 fault_detected += 1;
             }
-
-            sprintf(correct_val_array[primary_output_counter], "%d", graph[address].correct_value);
-            sprintf(fault_val_array[primary_output_counter], "%d", graph[address].fault_value);
+            
+            correct_val_array[primary_output_counter][0] = graph[address].correct_value + '\0';
+            fault_val_array[primary_output_counter][0] = graph[address].fault_value + '\0';
             primary_output_counter += 1;
         }
     }
 
     for (primary_input_counter = 0; primary_input_counter < vectors[pattern_idx].num_of_primary_inputs; primary_input_counter += 1)
     {
-        pattern_string[primary_input_counter] = vectors[pattern_idx].primary_input_vec[primary_input_counter];
+        pattern_string[primary_input_counter][0] = vectors[pattern_idx].primary_input_vec[primary_input_counter];
     }
 
-    logs[log_idx].input_vector = (char*) malloc(strlen(pattern_string) * sizeof(char));
-    logs[log_idx].correct_output = (char*) malloc(strlen(correct_val_array) * sizeof(char));
-    logs[log_idx].faulty_output = (char*) malloc(strlen(fault_val_array) * sizeof(char));
+    logs[log_idx].input_vector = (char*) malloc((primary_input_counter + 1) * sizeof(char));
+    logs[log_idx].correct_output = (char*) malloc((primary_output_counter + 1) * sizeof(char));
+    logs[log_idx].faulty_output = (char*) malloc((primary_output_counter + 1) * sizeof(char));
 
-    logs[log_idx].input_vector = strdup(pattern_string);
-    logs[log_idx].correct_output = strdup(correct_val_array);
-    logs[log_idx].faulty_output = strdup(fault_val_array);
+    copy_str(pattern_string, logs[log_idx].input_vector, primary_input_counter + 1);
+    copy_str(correct_val_array, logs[log_idx].correct_output, primary_output_counter + 1);
+    copy_str(fault_val_array, logs[log_idx].faulty_output, primary_output_counter + 1);
 
     logs[log_idx].index = log_idx;
     logs[log_idx].fault_address = faults[fault_idx].address;
