@@ -67,7 +67,13 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     bzero(logs[log_idx].correct_output, primary_output_counter + 1);
     bzero(logs[log_idx].faulty_output, primary_output_counter + 1);
 
-    copy_str(pattern_string, logs[log_idx].input_vector, primary_input_counter);
+    // copy_str(pattern_string, logs[log_idx].input_vector, primary_input_counter);
+
+    for (primary_input_counter = 0; primary_input_counter < index; primary_input_counter += 1)
+    {
+        logs[log_idx].input_vector[primary_input_counter] = pattern_string[primary_input_counter];
+    }
+    
     copy_str(correct_val_array, logs[log_idx].correct_output, primary_output_counter);
     copy_str(fault_val_array, logs[log_idx].faulty_output, primary_output_counter);
 
