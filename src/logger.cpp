@@ -51,9 +51,9 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     fault_val_array[primary_output_counter] = '\0';
     pattern_string[primary_input_counter] = '\0';
 
-    logs[log_idx].input_vector = (char*) malloc((strlen(pattern_string) * sizeof(char));
-    logs[log_idx].correct_output = (char*) malloc((strlen(correct_val_array) * sizeof(char));
-    logs[log_idx].faulty_output = (char*) malloc((strlen(fault_val_array) * sizeof(char));
+    logs[log_idx].input_vector = (char*) malloc(strlen(pattern_string) * sizeof(char));
+    logs[log_idx].correct_output = (char*) malloc(strlen(correct_val_array) * sizeof(char));
+    logs[log_idx].faulty_output = (char*) malloc(strlen(fault_val_array) * sizeof(char));
 
     logs[log_idx].input_vector = strdup(pattern_string);
     logs[log_idx].correct_output = strdup(correct_val_array);
@@ -65,11 +65,11 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
 
     if (fault_detected == 1)
     {
-        logs[log_idx].fault_detected = "YES";
+        sprintf(logs[log_idx].fault_detected, "YES");
     }
     else
     {
-        logs[log_idx].fault_detected = "NO";
+        sprintf(logs[log_idx].fault_detected, "NO");
     }
 }
 

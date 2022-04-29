@@ -11,9 +11,9 @@
  */
 void apply_input(NODE *graph, int address, PATTERN *vectors, int pattern_idx)
 {
-    graph[address].correct_value = vectors[pattern_idx][vectors[pattern_idx].current_primary_input];
-    graph[address].fault_value = vectors[pattern_idx][vectors[pattern_idx].current_primary_input];
-    vectors[pattern_idx].current_primary_input += 1
+    graph[address].correct_value = vectors[pattern_idx].primary_input_vec[vectors[pattern_idx].current_primary_input];
+    graph[address].fault_value = vectors[pattern_idx].primary_input_vec[vectors[pattern_idx].current_primary_input];
+    vectors[pattern_idx].current_primary_input += 1;
 }
 
 /**
@@ -69,8 +69,8 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
             {
                 simulate_node(graph, address, vectors, pattern_idx);
             }
-
-            register_simulation(graph, num_of_nodes, logs, fault_idx, pattern_idx, num_of_patterns);
+            
+            register_simulation(graph, num_of_nodes, vectors, pattern_idx, faults, fault_idx, logs, num_of_patterns);
             reset_circuit(graph, num_of_nodes);
         }
     }

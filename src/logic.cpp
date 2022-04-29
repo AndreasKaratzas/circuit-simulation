@@ -50,11 +50,11 @@ int compute_and_correct(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[graph[address].fanin[fanin_counter]].correct_value == 0)
+        if (graph[graph[address].fanin[fanin_counter].id].correct_value == 0)
         {
             zero_flag = 1;
         }
-        if (graph[graph[address].fanin[fanin_counter]].correct_value == 2)
+        if (graph[graph[address].fanin[fanin_counter].id].correct_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -106,11 +106,11 @@ int compute_and_fault(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 0)
+        if (graph[graph[address].fanin[fanin_counter].id].fault_value == 0)
         {
             zero_flag = 1;
         }
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 2)
+        if (graph[graph[address].fanin[fanin_counter].id].fault_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -162,11 +162,11 @@ int compute_or_correct(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[graph[address].fanin[fanin_counter]].correct_value == 1)
+        if (graph[graph[address].fanin[fanin_counter].id].correct_value == 1)
         {
             one_flag = 1;
         }
-        if (graph[graph[address].fanin[fanin_counter]].correct_value == 2)
+        if (graph[graph[address].fanin[fanin_counter].id].correct_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -218,11 +218,11 @@ int compute_or_fault(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 1)
+        if (graph[graph[address].fanin[fanin_counter].id].fault_value == 1)
         {
             one_flag = 1;
         }
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 2)
+        if (graph[graph[address].fanin[fanin_counter].id].fault_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -274,11 +274,11 @@ int compute_xor_correct(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[graph[address].fanin[fanin_counter]].correct_value == 1)
+        if (graph[graph[address].fanin[fanin_counter].id].correct_value == 1)
         {
             one_counter += 1;
         }
-        if (graph[graph[address].fanin[fanin_counter]].correct_value == 2)
+        if (graph[graph[address].fanin[fanin_counter].id].correct_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -340,11 +340,11 @@ int compute_xor_fault(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 1)
+        if (graph[graph[address].fanin[fanin_counter].id].fault_value == 1)
         {
             one_counter += 1;
         }
-        if (graph[graph[address].fanin[fanin_counter]].fault_value == 2)
+        if (graph[graph[address].fanin[fanin_counter].id].fault_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -391,10 +391,10 @@ void map_not(NODE *graph, int address)
 {
     if (graph[address].fault_value == 3)
     {
-        graph[address].fault_value = complementary(graph[address].fanin[0].fault_value);
+        graph[address].fault_value = complementary(graph[graph[address].fanin[0].id].fault_value);
     }
 
-    graph[address].correct_value = complementary(graph[address].fanin[0].correct_value);
+    graph[address].correct_value = complementary(graph[graph[address].fanin[0].id].correct_value);
 }
 
 /**
@@ -610,10 +610,10 @@ void map_buffer(NODE *graph, int address)
 {
     if (graph[address].fault_value == 3)
     {
-        graph[address].fault_value = graph[address].fanin[0].fault_value;
+        graph[address].fault_value = graph[graph[address].fanin[0].id].fault_value;
     }
 
-    graph[address].correct_value = graph[address].fanin[0].correct_value;
+    graph[address].correct_value = graph[graph[address].fanin[0].id].correct_value;
 }
 
 /**
@@ -633,8 +633,8 @@ void map_from(NODE *graph, int address)
 {
     if (graph[address].fault_value == 3)
     {
-        graph[address].fault_value = graph[address].fanin[0].fault_value;
+        graph[address].fault_value = graph[graph[address].fanin[0].id].fault_value;
     }
 
-    graph[address].correct_value = graph[address].fanin[0].correct_value;
+    graph[address].correct_value = graph[graph[address].fanin[0].id].correct_value;
 }
