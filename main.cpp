@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
     log_simulation(out_file, logs, num_of_patterns * num_of_faults);
     fclose(out_file);
 
-    print_circuit(circuit, num_of_nodes);
     print_vectors(vectors, num_of_patterns);
     print_faults(faults, num_of_faults);
     delete_circuit(circuit, MAX_NUM_OF_NODES);

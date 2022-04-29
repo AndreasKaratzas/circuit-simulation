@@ -52,12 +52,8 @@ void copy_str(char from[][2], char *to, int len)
 {
     int str_idx;
 
-    printf("\n");
     for (str_idx = 0; str_idx < len; str_idx += 1)
     {
         to[str_idx] = from[str_idx][0];
-
-        printf("%c", from[str_idx][0]);
     }
-    printf("\n");
 }
