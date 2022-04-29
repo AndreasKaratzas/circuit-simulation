@@ -155,10 +155,9 @@ int read_isc_file(FILE *isc_file, NODE *graph)
         // break line into data
         sscanf(line, "%d %s %s %s %s", &address, name, type, fanout_str, fanin_str);
 
-        if (address == 1 && node_count == 0)
+        if (address != node_count)
         {
-            offset = -1;
-            node_count = 1;
+            offset = node_count - address;
         }
         
         // update address of node with respect to the offset
@@ -212,6 +211,8 @@ int read_isc_file(FILE *isc_file, NODE *graph)
 
         bzero(line, strlen(line));
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, isc_file);
+
+        node_count += 1;
     }
 
     return (num_of_circuit_elements);
