@@ -99,4 +99,4 @@ More information on the ISCAS '85 benchmark can be found [here](https://davidkeb
 - [x] ask about the unknown command line argument
 - [x] trim all whitespace from all files
 - [x] ask about the project deadline extension
-- [ ] "typecast" the whole project from C++ to C
+- [x] "typecast" the whole project from C++ to C
