@@ -52,17 +52,17 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
         pattern_string[primary_input_counter][0] = vectors[pattern_idx].primary_input_vec[primary_input_counter] + '0';
     }
 
-    logs[log_idx].input_vector = (char*) malloc((primary_input_counter + 1) * sizeof(char));
+    logs[log_idx].input_vector = (char*) malloc((primary_input_counter) * sizeof(char));
     logs[log_idx].correct_output = (char*) malloc((primary_output_counter) * sizeof(char));
     logs[log_idx].faulty_output = (char*) malloc((primary_output_counter) * sizeof(char));
 
-    bzero(logs[log_idx].input_vector, primary_input_counter + 1);
+    bzero(logs[log_idx].input_vector, primary_input_counter);
     bzero(logs[log_idx].correct_output, primary_output_counter);
     bzero(logs[log_idx].faulty_output, primary_output_counter);
 
-    copy_str(pattern_string, logs[log_idx].input_vector, primary_input_counter + 1);
-    copy_str(correct_val_array, logs[log_idx].correct_output, primary_output_counter + 1);
-    copy_str(fault_val_array, logs[log_idx].faulty_output, primary_output_counter + 1);
+    copy_str(pattern_string, logs[log_idx].input_vector, primary_input_counter);
+    copy_str(correct_val_array, logs[log_idx].correct_output, primary_output_counter);
+    copy_str(fault_val_array, logs[log_idx].faulty_output, primary_output_counter);
 
     logs[log_idx].index = log_idx;
     logs[log_idx].fault_address = fault_address;

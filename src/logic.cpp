@@ -43,13 +43,15 @@ int complementary(int input)
  */
 int compute_and_correct(NODE *graph, int address)
 {
-    int fanin_counter, result, zero_flag, dont_care_flag;
+    int fanin_counter, zero_flag, dont_care_flag;
 
     zero_flag = 0;
     dont_care_flag = 0;
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
+        printf("%d", graph[graph[address].fanin[fanin_counter].id].correct_value);
+
         if (graph[graph[address].fanin[fanin_counter].id].correct_value == 0)
         {
             zero_flag = 1;
@@ -60,20 +62,19 @@ int compute_and_correct(NODE *graph, int address)
         }
     }
 
+    printf("\n");
+
     if (zero_flag == 1)
     {
-        result = 0;
-    }
-    else if (dont_care_flag == 1)
-    {
-        result = 2;
-    }
-    else
-    {
-        result = 1;
+        return (0);
     }
 
-    return (result);
+    if (dont_care_flag == 1)
+    {
+        return (2);
+    }
+
+    return (1);
 }
 
 /**
@@ -99,13 +100,15 @@ int compute_and_correct(NODE *graph, int address)
  */
 int compute_and_fault(NODE *graph, int address)
 {
-    int fanin_counter, result, zero_flag, dont_care_flag;
+    int fanin_counter, zero_flag, dont_care_flag;
 
     zero_flag = 0;
     dont_care_flag = 0;
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
+        printf("%d", graph[graph[address].fanin[fanin_counter].id].correct_value);
+
         if (graph[graph[address].fanin[fanin_counter].id].fault_value == 0)
         {
             zero_flag = 1;
@@ -115,21 +118,19 @@ int compute_and_fault(NODE *graph, int address)
             dont_care_flag = 1;
         }
     }
+    printf("\n");
 
     if (zero_flag == 1)
     {
-        result = 0;
+        return (0);
     }
-    else if (dont_care_flag == 1)
+    
+    if (dont_care_flag == 1)
     {
-        result = 2;
-    }
-    else
-    {
-        result = 1;
+        return (2);
     }
 
-    return (result);
+    return (1);
 }
 
 /**
@@ -155,7 +156,7 @@ int compute_and_fault(NODE *graph, int address)
  */
 int compute_or_correct(NODE *graph, int address)
 {
-    int fanin_counter, result, one_flag, dont_care_flag;
+    int fanin_counter, one_flag, dont_care_flag;
 
     one_flag = 0;
     dont_care_flag = 0;
@@ -174,18 +175,15 @@ int compute_or_correct(NODE *graph, int address)
 
     if (one_flag == 1)
     {
-        result = 1;
+        return (1);
     }
-    else if (dont_care_flag == 1)
+    
+    if (dont_care_flag == 1)
     {
-        result = 2;
-    }
-    else
-    {
-        result = 0;
+        return (2);
     }
 
-    return (result);
+    return (0);
 }
 
 /**
@@ -211,7 +209,7 @@ int compute_or_correct(NODE *graph, int address)
  */
 int compute_or_fault(NODE *graph, int address)
 {
-    int fanin_counter, result, one_flag, dont_care_flag;
+    int fanin_counter, one_flag, dont_care_flag;
 
     one_flag = 0;
     dont_care_flag = 0;
@@ -230,18 +228,15 @@ int compute_or_fault(NODE *graph, int address)
 
     if (one_flag == 1)
     {
-        result = 1;
+        return (1);
     }
-    else if (dont_care_flag == 1)
+    
+    if (dont_care_flag == 1)
     {
-        result = 2;
-    }
-    else
-    {
-        result = 0;
+        return (2);
     }
 
-    return (result);
+    return (0);
 }
 
 /**
@@ -267,7 +262,7 @@ int compute_or_fault(NODE *graph, int address)
  */
 int compute_xor_correct(NODE *graph, int address)
 {
-    int fanin_counter, result, one_counter, dont_care_flag;
+    int fanin_counter, one_counter, dont_care_flag;
 
     one_counter = 0;
     dont_care_flag = 0;
@@ -286,28 +281,10 @@ int compute_xor_correct(NODE *graph, int address)
 
     if (dont_care_flag == 1)
     {
-        result = 2;
-    }
-    else
-    {
-        if (one_counter % 2 == 0)
-        {
-            if (one_counter > 0)
-            {
-                result = 1;
-            }
-            else
-            {
-                result = 0;
-            }
-        }
-        else
-        {
-            result = 0;
-        }
+        return (2);
     }
 
-    return (result);
+    return (one_counter % 2);
 }
 
 /**
@@ -333,7 +310,7 @@ int compute_xor_correct(NODE *graph, int address)
  */
 int compute_xor_fault(NODE *graph, int address)
 {
-    int fanin_counter, result, one_counter, dont_care_flag;
+    int fanin_counter, one_counter, dont_care_flag;
 
     one_counter = 0;
     dont_care_flag = 0;
@@ -352,28 +329,10 @@ int compute_xor_fault(NODE *graph, int address)
 
     if (dont_care_flag == 1)
     {
-        result = 2;
-    }
-    else
-    {
-        if (one_counter % 2 == 0)
-        {
-            if (one_counter > 0)
-            {
-                result = 1;
-            }
-            else
-            {
-                result = 0;
-            }
-        }
-        else
-        {
-            result = 0;
-        }
+        return (2);
     }
 
-    return (result);
+    return (one_counter % 2);
 }
 
 /**
