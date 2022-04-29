@@ -59,7 +59,7 @@ void gate_handler(FILE *isc_file, NODE *graph, int fanin, int address, int *node
 {
     int _branch_line, input_address;
 
-    for (_branch_line = 1; _branch_line <= fanin; _branch_line += 1)
+    for (_branch_line = 0; _branch_line < fanin; _branch_line += 1)
     {
         fscanf(isc_file, "%d", &input_address);
         input_address = node_dictionary[input_address];
