@@ -65,6 +65,9 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     copy_str(correct_val_array, logs[log_idx].correct_output, primary_output_counter);
     copy_str(fault_val_array, logs[log_idx].faulty_output, primary_output_counter);
 
+    printf("PRIM INP: %d\n", primary_input_counter);
+    printf("PRIM OUT: %d\n", primary_output_counter);
+
     logs[log_idx].index = log_idx;
     logs[log_idx].fault_address = fault_address;
     logs[log_idx].fault_value = fault_value;
