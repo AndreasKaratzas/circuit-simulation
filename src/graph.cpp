@@ -113,7 +113,7 @@ void delete_element(LIST **l)
  * @param graph     the result graph NODE structure entity
  * @return int      the index of the last node generated in the new graph entity
  */
-int read_isc_file(FILE *isc_file, NODE *graph)
+int read_isc_file(FILE *isc_file, NODE *graph, int *node_dictionary)
 {
     char name[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char type[MAX_NUM_OF_CHARACTERS_IN_LINE];
@@ -121,7 +121,6 @@ int read_isc_file(FILE *isc_file, NODE *graph)
     char fanin_str[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
     char from[MAX_NUM_OF_CHARACTERS_IN_LINE];
-    int node_dictionary[MAX_NUM_OF_NODES];
 
     int node_count, address, fanout, fanin, num_of_circuit_elements, _branch_line, offset;
 

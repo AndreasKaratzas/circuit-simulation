@@ -16,7 +16,7 @@
  * @param logs            the log structure which will be later used to output the simulation results
  * @param num_of_patterns the total number of test vectors
  */
-void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pattern_idx, FAULT *faults, int fault_idx, LOGGER *logs, int num_of_patterns)
+void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pattern_idx, int fault_address, int fault_value, LOGGER *logs, int num_of_patterns)
 {
     int address, primary_output_counter, fault_detected, log_idx, primary_input_counter;
     char correct_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS][1];
@@ -56,8 +56,8 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     copy_str(fault_val_array, logs[log_idx].faulty_output, primary_output_counter + 1);
 
     logs[log_idx].index = log_idx;
-    logs[log_idx].fault_address = faults[fault_idx].address;
-    logs[log_idx].fault_value = faults[fault_idx].fault;
+    logs[log_idx].fault_address = fault_address;
+    logs[log_idx].fault_value = fault_value;
 
     if (fault_detected == 1)
     {
@@ -69,13 +69,13 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
     }
 
     printf("%d | %s | %s | %d/%d | %s | %d\n", 
-        log_idx, 
+        logs[log_idx].index, 
         logs[log_idx].input_vector, 
         logs[log_idx].correct_output, 
-        faults[fault_idx].address, 
-        faults[fault_idx].fault, 
+        logs[log_idx].fault_address, 
+        logs[log_idx].fault_value, 
         logs[log_idx].faulty_output, 
-        fault_detected
+        logs[log_idx].fault_detected
     );
 }
 

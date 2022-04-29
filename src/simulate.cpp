@@ -54,7 +54,7 @@ void simulate_node(NODE *graph, int address, PATTERN *vectors, int pattern_idx)
  * @param num_of_patterns the total number of test vectors
  * @param num_of_faults   the total number of faults under which the circuit was tested
  */
-void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs, int num_of_nodes, int num_of_patterns, int num_of_faults)
+void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs, int num_of_nodes, int num_of_patterns, int num_of_faults, int *node_dictionary)
 {
     int address, pattern_idx, fault_idx;
 
@@ -63,18 +63,18 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
     for (fault_idx = 0; fault_idx < num_of_faults; fault_idx += 1)
     {
         reset_pattern(vectors, num_of_patterns);
-        inject_fault(graph, faults[fault_idx].address, faults[fault_idx].fault);
+        inject_fault(graph, node_dictionary[faults[fault_idx].address], faults[fault_idx].fault);
 
         for (pattern_idx = 0; pattern_idx < num_of_patterns; pattern_idx += 1)
         {
             reset_circuit(graph, num_of_nodes);
-            
+
             for (address = 0; address < num_of_nodes; address += 1)
             {
                 simulate_node(graph, address, vectors, pattern_idx);
             }
             
-            register_simulation(graph, num_of_nodes, vectors, pattern_idx, faults, fault_idx, logs, num_of_patterns);
+            register_simulation(graph, num_of_nodes, vectors, pattern_idx, node_dictionary[faults[fault_idx].address], faults[fault_idx].fault, logs, num_of_patterns);
         }
     }
 }
