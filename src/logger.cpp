@@ -71,8 +71,10 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
 
     for (primary_input_counter = 0; primary_input_counter < index; primary_input_counter += 1)
     {
+        printf("%c", pattern_string[primary_input_counter]);
         logs[log_idx].input_vector[primary_input_counter] = pattern_string[primary_input_counter];
     }
+    printf("\n\n\n");
     
     copy_str(correct_val_array, logs[log_idx].correct_output, primary_output_counter);
     copy_str(fault_val_array, logs[log_idx].faulty_output, primary_output_counter);
