@@ -114,7 +114,7 @@ void log_simulation(FILE *out_file, LOGGER *logs, int num_of_logs)
     for (log_count = 0; log_count < num_of_logs; log_count += 1)
     {
 
-        printf ("%d | %s | %s | %d/%d | %s | %s\n", 
+        printf ("%d\n\n| %s\n\n| %s\n\n| %d/%d | %s | %s\n", 
             logs[log_count].index,
             logs[log_count].input_vector,
             logs[log_count].correct_output,
