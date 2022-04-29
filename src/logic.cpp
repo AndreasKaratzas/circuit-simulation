@@ -55,16 +55,16 @@ int compute_and_correct(NODE *graph, int address)
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
         printf(" id (%d): [%s %d]", 
-            temp.id, 
-            graph[temp.id].name, 
-            graph[temp.id].correct_value
+            temp->id, 
+            graph[temp->id].name, 
+            graph[temp->id].correct_value
         );
 
-        if (graph[temp.id].correct_value == 0)
+        if (graph[temp->id].correct_value == 0)
         {
             zero_flag = 1;
         }
-        if (graph[temp.id].correct_value == 2)
+        if (graph[temp->id].correct_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -122,16 +122,16 @@ int compute_and_fault(NODE *graph, int address)
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
         printf(" id (%d): [%s %d]", 
-            temp.id, 
-            graph[temp.id].name, 
-            graph[temp.id].correct_value
+            temp->id, 
+            graph[temp->id].name, 
+            graph[temp->id].correct_value
         );
         
-        if (graph[temp.id].fault_value == 0)
+        if (graph[temp->id].fault_value == 0)
         {
             zero_flag = 1;
         }
-        if (graph[temp.id].fault_value == 2)
+        if (graph[temp->id].fault_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -185,11 +185,11 @@ int compute_or_correct(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[temp.id].correct_value == 1)
+        if (graph[temp->id].correct_value == 1)
         {
             one_flag = 1;
         }
-        if (graph[temp.id].correct_value == 2)
+        if (graph[temp->id].correct_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -242,11 +242,11 @@ int compute_or_fault(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[temp.id].fault_value == 1)
+        if (graph[temp->id].fault_value == 1)
         {
             one_flag = 1;
         }
-        if (graph[temp.id].fault_value == 2)
+        if (graph[temp->id].fault_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -299,11 +299,11 @@ int compute_xor_correct(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[temp.id].correct_value == 1)
+        if (graph[temp->id].correct_value == 1)
         {
             one_counter += 1;
         }
-        if (graph[temp.id].correct_value == 2)
+        if (graph[temp->id].correct_value == 2)
         {
             dont_care_flag = 1;
         }
@@ -351,11 +351,11 @@ int compute_xor_fault(NODE *graph, int address)
 
     for (fanin_counter = 0; fanin_counter < graph[address].num_of_fan_ins; fanin_counter += 1)
     {
-        if (graph[temp.id].fault_value == 1)
+        if (graph[temp->id].fault_value == 1)
         {
             one_counter += 1;
         }
-        if (graph[temp.id].fault_value == 2)
+        if (graph[temp->id].fault_value == 2)
         {
             dont_care_flag = 1;
         }
