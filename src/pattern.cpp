@@ -9,7 +9,7 @@
  *          * `x` and `X` are mapped to 2.
  *
  *        There is a basic protection mechanism in the case of an invalid parsed character.
- * 
+ *
  * @param pattern_str the test vector in raw string format
  * @param pattern_int the result test vector in integer format
  * @param num_of_vec_elements the number of primary inputs
@@ -35,7 +35,7 @@ void map_pattern(char *pattern_str, int *pattern_int, int num_of_vec_elements)
 
 /**
  * @brief Parses a `.vec` file.
- * 
+ *
  * @param vec_file the given `.vec` file to parse
  * @param vectors  the result vectors instantiated after processing the `.vec` file
  * @return int     the total pattern count
@@ -49,7 +49,7 @@ int read_vec_file(FILE *vec_file, PATTERN *vectors)
     while( !feof(vec_file) )
     {
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, vec_file);
-        
+
         if (strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\n") != 0 && strcmp(line, "\0") != 0)
         {
             sscanf(line, "%s", raw_vector);
@@ -60,7 +60,7 @@ int read_vec_file(FILE *vec_file, PATTERN *vectors)
             num_of_patterns += 1;
         }
     }
-    
+
     return (num_of_patterns);
 }
 
@@ -68,7 +68,7 @@ int read_vec_file(FILE *vec_file, PATTERN *vectors)
  * @brief Prints all elements of a test vector entity of type PATTERN structure.
  *        The use case of this function is after parsing an VEC file
  *        using `read_vec_file()`.
- * 
+ *
  * @param vectors         the given vector entity
  * @param num_of_patterns the number of vector elements returned by `read_vec_file()`
  */
@@ -91,7 +91,7 @@ void print_vectors(PATTERN *vectors, int num_of_patterns)
 
 /**
  * @brief Deallocates the memory segments used for saving test vectors of type PATTERN structure.
- * 
+ *
  * @param vectors         the given vector entity
  * @param num_of_patterns the number of vector elements returned by `read_vec_file()`
  */

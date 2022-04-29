@@ -122,11 +122,11 @@ void map_xnor(NODE *, int);
 void map_buffer(NODE *, int);
 void map_from(NODE *, int);
 
-void register_simulation(NODE *, int, PATTERN *, int, int, int, int, LOGGER *, int);
+void register_simulation(NODE *, int, PATTERN *, int, int, int, int, LOGGER *, int, int);
 void log_simulation(FILE *, LOGGER *, int);
 
 void apply_input(NODE *, int, PATTERN *, int);
 void simulate_node(NODE *, int, PATTERN *, int);
-void simulate_circuit(NODE *, PATTERN *, FAULT *, LOGGER *, int, int, int, int *);
+void simulate_circuit(NODE *, PATTERN *, FAULT *, LOGGER *, int, int, int, int *, int);
 void reset_circuit(NODE *, int);
 void reset_pattern(PATTERN *, int);

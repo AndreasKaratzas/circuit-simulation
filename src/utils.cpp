@@ -40,12 +40,12 @@ void store_repeat(char *str, char c, int num_of_chars)
 
 /**
  * @brief This function copies a string to another string.
- * 
+ *
  * @param from the source string
  * @param to   the destination string
- * @param len  the length of the string 
+ * @param len  the length of the string
  *
- * @note The source string is a 2d char array that has only one 
+ * @note The source string is a 2d char array that has only one
  *       element in its second dimension.
  */
 void copy_str(char from[][2], char *to, int len)

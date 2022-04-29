@@ -15,8 +15,9 @@
  * @param fault_idx       the index of the fault injected. The index is an argument with respect to the `FAULTS` array
  * @param logs            the log structure which will be later used to output the simulation results
  * @param num_of_patterns the total number of test vectors
+ * @param verbose         this parameter can either take value 0 or 1 indicating the preference of the user to regularly log simulation information to the terminal
  */
-void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pattern_idx, int fault_idx, int fault_address, int fault_value, LOGGER *logs, int num_of_patterns)
+void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pattern_idx, int fault_idx, int fault_address, int fault_value, LOGGER *logs, int num_of_patterns, int verbose)
 {
     int address, primary_output_counter, fault_detected, log_idx, primary_input_counter;
     char correct_val_array[MAX_NUM_OF_PRIMARY_OUTPUTS][2];
@@ -38,7 +39,7 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
 
             bzero(correct_val_array[primary_output_counter], 2);
             bzero(fault_val_array[primary_output_counter], 2);
-            
+
             correct_val_array[primary_output_counter][0] = graph[address].correct_value + '0';
             fault_val_array[primary_output_counter][0] = graph[address].fault_value + '0';
             primary_output_counter += 1;
@@ -77,15 +78,18 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
         sprintf(logs[log_idx].fault_detected, "NO");
     }
 
-    printf("%d | %s | %s | %d/%d | %s | %s\n", 
-        logs[log_idx].index, 
-        logs[log_idx].input_vector, 
-        logs[log_idx].correct_output, 
-        logs[log_idx].fault_address, 
-        logs[log_idx].fault_value, 
-        logs[log_idx].faulty_output, 
-        logs[log_idx].fault_detected
-    );
+    if (verbose == 1)
+    {
+        printf("%d | %s | %s | %d/%d | %s | %s\n",
+            logs[log_idx].index,
+            logs[log_idx].input_vector,
+            logs[log_idx].correct_output,
+            logs[log_idx].fault_address,
+            logs[log_idx].fault_value,
+            logs[log_idx].faulty_output,
+            logs[log_idx].fault_detected
+        );
+    }
 }
 
 /**

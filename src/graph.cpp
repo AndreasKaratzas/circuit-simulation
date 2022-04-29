@@ -161,7 +161,7 @@ int read_isc_file(FILE *isc_file, NODE *graph, int *node_dictionary)
 
         // this array is used to map the nodes in the `fanin` column of the `isc` file
         node_dictionary[address] = address + offset;
-        
+
         // update address of node with respect to the offset
         address += offset;
 

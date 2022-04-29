@@ -57,12 +57,16 @@ void simulate_node(NODE *graph, int address, PATTERN *vectors, int pattern_idx)
  * @param num_of_nodes    the total number of nodes
  * @param num_of_patterns the total number of test vectors
  * @param num_of_faults   the total number of faults under which the circuit was tested
+ * @param verbose         this parameter can either take value 0 or 1 indicating the preference of the user to regularly log simulation information to the terminal
  */
-void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs, int num_of_nodes, int num_of_patterns, int num_of_faults, int *node_dictionary)
+void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs, int num_of_nodes, int num_of_patterns, int num_of_faults, int *node_dictionary, int verbose)
 {
     int address, pattern_idx, fault_idx;
 
-    printf("INDEX | INPUT VECTOR | CORRECT OUTPUT | FAULT INJECTED | FAULTY OUTPUT | FAULT DETECTED\n");
+    if (verbose == 1)
+    {
+        printf("INDEX | INPUT VECTOR | CORRECT OUTPUT | FAULT INJECTED | FAULTY OUTPUT | FAULT DETECTED\n");
+    }
 
     for (fault_idx = 0; fault_idx < num_of_faults; fault_idx += 1)
     {
@@ -77,8 +81,12 @@ void simulate_circuit(NODE *graph, PATTERN *vectors, FAULT *faults, LOGGER *logs
             {
                 simulate_node(graph, address, vectors, pattern_idx);
             }
-            
-            print_circuit(graph, num_of_nodes);
+
+            if (verbose == 1)
+            {
+                print_circuit(graph, num_of_nodes);
+            }
+
             register_simulation(graph, num_of_nodes, vectors, pattern_idx, fault_idx, node_dictionary[faults[fault_idx].address], faults[fault_idx].fault, logs, num_of_patterns);
         }
     }

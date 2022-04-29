@@ -11,8 +11,10 @@
 int main(int argc, char *argv[])
 {
     FILE *isc_file, *vec_file, *faults_file, *out_file;
-    int num_of_nodes, num_of_patterns, num_of_faults;
+    int num_of_nodes, num_of_patterns, num_of_faults, verbose;
     int node_dictionary[MAX_NUM_OF_NODES];
+
+    verbose = 0;
 
     NODE circuit[MAX_NUM_OF_NODES];
     PATTERN vectors[MAX_NUM_OF_TEST_VECTORS];
@@ -31,7 +33,12 @@ int main(int argc, char *argv[])
     num_of_faults = read_faults_file(faults_file, faults);
     fclose(faults_file);
 
-    simulate_circuit(circuit, vectors, faults, logs, num_of_nodes, num_of_patterns, num_of_faults, node_dictionary);
+    if (argc == 6)
+    {
+        verbose = atoi(argv[5]);
+    }
+
+    simulate_circuit(circuit, vectors, faults, logs, num_of_nodes, num_of_patterns, num_of_faults, node_dictionary, verbose);
 
     out_file = fopen(argv[4], "ab+");
     log_simulation(out_file, logs, num_of_patterns * num_of_faults);
