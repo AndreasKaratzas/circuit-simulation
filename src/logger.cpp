@@ -70,11 +70,11 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
 
     printf("%d | %s | %s | %d/%d | %s | %d\n", 
         log_idx, 
-        pattern_string, 
-        correct_val_array, 
+        logs[log_idx].input_vector, 
+        logs[log_idx].correct_output, 
         faults[fault_idx].address, 
         faults[fault_idx].fault, 
-        fault_val_array, 
+        logs[log_idx].faulty_output, 
         fault_detected
     );
 }
