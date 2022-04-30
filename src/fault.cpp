@@ -11,21 +11,24 @@
  */
 int read_faults_file(FILE *faults_file, FAULT *faults)
 {
-    int char_counter;
-    int num_of_faults;
-    int num_of_characters_in_fault_file;
-    int max_num_of_characters_in_line;
-    char *MAX_NUM_OF_CHARACTERS_IN_LINE_char;
-    char *line;
-    char *node_address;
+    int char_counter, num_of_faults, num_of_characters_in_fault_file, max_num_of_node_address_digits, tmp_mul;
+    char *line, *node_address;
 
+    tmp_mul = 10;
     num_of_faults = 0;
-    max_num_of_characters_in_line = MAX_NUM_OF_CHARACTERS_IN_LINE;
+    max_num_of_node_address_digits = 0;
 
-    sscanf(MAX_NUM_OF_CHARACTERS_IN_LINE_char, "%d", &max_num_of_characters_in_line);
+    while(MAX_NUM_OF_NODES / tmp_mul > 1)
+    {
+        max_num_of_node_address_digits += 1;
+        tmp_mul = pow(tmp_mul, max_num_of_node_address_digits);
+    }
 
     // inject some redundancy in case of extra whitespaces and other unwanted characters
-    num_of_characters_in_fault_file = strlen(MAX_NUM_OF_CHARACTERS_IN_LINE_char) + 10;
+    // 2 extra characters are the `/` and a possible extra space between the `/` character and the 
+    // fault value and the rest 5 characters are the redundancy
+    num_of_characters_in_fault_file = max_num_of_node_address_digits + 2 + 5;
+
 
     line = (char*) malloc(num_of_characters_in_fault_file * sizeof (char));
     node_address = (char*) malloc(num_of_characters_in_fault_file * sizeof (char));
