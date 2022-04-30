@@ -20,7 +20,7 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
 
     num_of_faults = 0;
 
-    sscanf(MAX_NUM_OF_CHARACTERS_IN_LINE_char, "%d", MAX_NUM_OF_CHARACTERS_IN_LINE);
+    sscanf(MAX_NUM_OF_CHARACTERS_IN_LINE_char, "%d", &MAX_NUM_OF_CHARACTERS_IN_LINE);
 
     // inject some redundancy in case of extra whitespaces and other unwanted characters
     num_of_characters_in_fault_file = strlen(MAX_NUM_OF_CHARACTERS_IN_LINE_char) + 10;
@@ -37,12 +37,12 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
 
         if (strlen(line) > 0)
         {
-            for (char_counter = 0; strcmp(line[char_counter], '/') != 0, char_counter += 1)
+            for (char_counter = 0; line[char_counter] != '/'; char_counter += 1)
             {
                 node_address[char_counter] = line[char_counter];
             }
 
-            while(strcmp(line[char_counter], '/') == 0 or strcmp(line[char_counter], ' ') == 0)
+            while(line[char_counter] == '/' or line[char_counter] == ' ')
             {
                 char_counter += 1;
             }
