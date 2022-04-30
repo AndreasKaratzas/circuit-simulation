@@ -25,10 +25,9 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
     }
 
     // inject some redundancy in case of extra whitespaces and other unwanted characters
-    // 2 extra characters are the `/` and a possible extra space between the `/` character and the 
+    // 2 extra characters are the `/` and a possible extra space between the `/` character and the
     // fault value and the rest 5 characters are the redundancy
     num_of_characters_in_fault_file = max_num_of_node_address_digits + 2 + 5;
-
 
     line = (char*) malloc(num_of_characters_in_fault_file * sizeof (char));
     node_address = (char*) malloc(num_of_characters_in_fault_file * sizeof (char));

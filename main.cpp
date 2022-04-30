@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     FILE *isc_file, *vec_file, *faults_file, *out_file;
     int num_of_nodes, num_of_patterns, num_of_faults, verbose;
     int node_dictionary[MAX_NUM_OF_NODES];
+    char benchmark[10];
 
     verbose = 0;
 
@@ -41,6 +42,7 @@ int main(int argc, char *argv[])
     simulate_circuit(circuit, vectors, faults, logs, num_of_nodes, num_of_patterns, num_of_faults, node_dictionary, verbose);
 
     out_file = fopen(argv[4], "ab+");
+    get_benchmark_name(benchmark, argv[1])
     log_simulation(out_file, logs, num_of_patterns * num_of_faults, num_of_patterns, node_dictionary);
     fclose(out_file);
 
