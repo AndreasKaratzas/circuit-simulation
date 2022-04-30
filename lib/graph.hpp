@@ -123,7 +123,8 @@ void map_buffer(NODE *, int);
 void map_from(NODE *, int);
 
 void register_simulation(NODE *, int, PATTERN *, int, int, int, int, LOGGER *, int, int);
-void log_simulation(FILE *, LOGGER *, int);
+void log_simulation(FILE *, LOGGER *, int, int, int *);
+int get_original_node_address(int *, int);
 
 void apply_input(NODE *, int, PATTERN *, int);
 void simulate_node(NODE *, int, PATTERN *, int);
