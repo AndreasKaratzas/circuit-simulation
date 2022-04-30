@@ -50,7 +50,7 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
             }
 
             faults[num_of_faults].address = atoi(node_address);
-            faults[num_of_faults].fault = atoi(line[char_counter]);
+            faults[num_of_faults].fault = line[char_counter] - '0';
 
             num_of_faults += 1;
         }
