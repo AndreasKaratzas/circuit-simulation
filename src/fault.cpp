@@ -18,7 +18,7 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
     {
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, faults_file);
 
-        if (strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\n") != 0 && strcmp(line, "\0") != 0)
+        if (strlen(line) > 0)
         {
             sscanf(line, "%d/%d", &faults[num_of_faults].address, &faults[num_of_faults].fault);
             bzero(line, strlen(line));

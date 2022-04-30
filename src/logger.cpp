@@ -126,7 +126,7 @@ void log_simulation(FILE *out_file, LOGGER *logs, int num_of_logs, int num_of_pa
             prev_fault_node_address = original_node_address;
             prev_fault_value = logs[log_count].fault_value;
 
-            fprintf(out_file, "%d/%d\n", prev_fault_node_address, prev_fault_value);
+            fprintf(out_file, "%d/%d:\n", prev_fault_node_address, prev_fault_value);
         }
 
         fprintf(out_file, "\t%d: %s %s %s (%s)\n",
