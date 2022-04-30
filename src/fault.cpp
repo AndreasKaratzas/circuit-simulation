@@ -19,7 +19,7 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
     char *node_address;
 
     num_of_faults = 0;
-    MAX_NUM_OF_CHARACTERS_IN_LINE_char = MAX_NUM_OF_CHARACTERS_IN_LINE + '0';
+    MAX_NUM_OF_CHARACTERS_IN_LINE_char = MAX_NUM_OF_CHARACTERS_IN_LINE + "0";
 
     // inject some redundancy in case of extra whitespaces and other unwanted characters
     num_of_characters_in_fault_file = strlen(MAX_NUM_OF_CHARACTERS_IN_LINE_char) + 10;
@@ -36,19 +36,19 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
 
         if (strlen(line) > 0)
         {
-            for (char_counter = 0; strcmp(line[char_counter], '/') != 0, char_counter += 1)
+            for (char_counter = 0; strcmp(line[char_counter], "/") != 0, char_counter += 1)
             {
                 node_address[char_counter] = line[char_counter];
             }
 
-            while(strcmp(line[char_counter], '/') == 0 or strcmp(line[char_counter], ' ') == 0)
+            while(strcmp(line[char_counter], "/") == 0 or strcmp(line[char_counter], " ") == 0)
             {
                 char_counter += 1;
             }
 
             faults[num_of_faults].address = atoi(node_address[char_counter])
             faults[num_of_faults].fault = atoi(line[char_counter]);
-            
+
             num_of_faults += 1;
         }
     }
