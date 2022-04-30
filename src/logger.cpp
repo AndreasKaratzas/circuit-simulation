@@ -141,7 +141,7 @@ void log_simulation(FILE *out_file, LOGGER *logs, int num_of_logs, int num_of_pa
 
 /**
  * @brief Get the original node address with respect to the circuit file
- * 
+ *
  * @param node_dictionary         the node dictionary compiled while creating the circuit
  * @param compressed_node_address the node address corresponding to the compressed version of the circuit
  * @return int                    the original node address (before compression)

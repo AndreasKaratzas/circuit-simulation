@@ -14,17 +14,19 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
     int char_counter;
     int num_of_faults;
     int num_of_characters_in_fault_file;
+    int max_num_of_characters_in_line;
     char *MAX_NUM_OF_CHARACTERS_IN_LINE_char;
     char *line;
     char *node_address;
 
     num_of_faults = 0;
+    max_num_of_characters_in_line = MAX_NUM_OF_CHARACTERS_IN_LINE;
 
-    sscanf(MAX_NUM_OF_CHARACTERS_IN_LINE_char, "%d", &MAX_NUM_OF_CHARACTERS_IN_LINE);
+    sscanf(MAX_NUM_OF_CHARACTERS_IN_LINE_char, "%d", &max_num_of_characters_in_line);
 
     // inject some redundancy in case of extra whitespaces and other unwanted characters
     num_of_characters_in_fault_file = strlen(MAX_NUM_OF_CHARACTERS_IN_LINE_char) + 10;
-    
+
     line = (char*) malloc(num_of_characters_in_fault_file * sizeof (char));
     node_address = (char*) malloc(num_of_characters_in_fault_file * sizeof (char));
 
@@ -47,9 +49,9 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
                 char_counter += 1;
             }
 
-            faults[num_of_faults].address = atoi(node_address[char_counter])
+            faults[num_of_faults].address = atoi(node_address);
             faults[num_of_faults].fault = atoi(line[char_counter]);
-            
+
             num_of_faults += 1;
         }
     }
