@@ -601,7 +601,7 @@ void map_buffer(NODE *graph, int address)
 /**
  * @brief This is a mapper function for the FROM module.
  *        The architecture of this module follows the propagation
- *        table protocol located at the `docs`directory. This
+ *        table protocol located at the `docs` directory. This
  *        table supports a three value logic. The FROM module is
  *        another version of the BUFFER. However, it actually
  *        covers the connections and is replacing the wiring.
