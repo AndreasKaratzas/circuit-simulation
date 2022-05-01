@@ -9,6 +9,13 @@
  * @return int the execution status as per OS protocol
  *
  * @version 3.0.5
+ *
+ * @test To execute the target file use:
+ *      $> ./project data/input/c17.isc data/input/c17.vec data/input/c17.faults data/output/c17.results
+ *      $> ./project data/input/c880.isc data/input/c880.vec data/input/c880.faults data/output/c880.results
+ *      $> ./project data/input/c1908.isc data/input/c1908.vec data/input/c1908.faults data/output/c1908.results
+ *      $> ./project data/input/c7552.isc data/input/c7552.vec data/input/c7552.faults data/output/c7552.results
+ *
  */
 int main(int argc, char *argv[])
 {
