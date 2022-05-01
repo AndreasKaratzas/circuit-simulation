@@ -175,7 +175,7 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "******************************************************************");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* @Version - 3.0.3                                                ");
+    fprintf(out_file, "* @Version - 3.0.4                                                ");
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
@@ -251,11 +251,11 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*|      0. <first test pattern> <correct value line> <faulty value");
-    fprintf(out_file, " line> (<YES/NO indicating if false value was detected or not>) |*");
+    fprintf(out_file, " line> (<Fault detected/Fault NOT detected>)                    |*");
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*|      1. <second test pattern> <correct value line> <faulty valu");
-    fprintf(out_file, "e line> (<YES/NO indicating if false value was detected or not>)|*");
+    fprintf(out_file, "e line> (<Fault detected/Fault NOT detected>)                   |*");
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*|       .                                                        ");
@@ -275,11 +275,11 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*|      0. <first test pattern> <correct value line> <faulty value");
-    fprintf(out_file, " line> (<YES/NO indicating if false value was detected or not>) |*");
+    fprintf(out_file, " line> (<Fault detected/Fault NOT detected>)                    |*");
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*|      1. <second test pattern> <correct value line> <faulty valu");
-    fprintf(out_file, "e line> (<YES/NO indicating if false value was detected or not>)|*");
+    fprintf(out_file, "e line> (<Fault detected/Fault NOT detected>)                  )|*");
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*|       .                                                        ");
