@@ -175,7 +175,7 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "******************************************************************");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* @Version - 3.0.4                                                ");
+    fprintf(out_file, "* @Version - 3.0.5                                                ");
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
@@ -279,7 +279,7 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*|      1. <second test pattern> <correct value line> <faulty valu");
-    fprintf(out_file, "e line> (<Fault detected/Fault NOT detected>)                  )|*");
+    fprintf(out_file, "e line> (<Fault detected/Fault NOT detected>)                   |*");
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*|       .                                                        ");
