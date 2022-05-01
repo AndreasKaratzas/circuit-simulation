@@ -365,12 +365,15 @@ int compute_xor_fault(NODE *graph, int address)
  */
 void map_not(NODE *graph, int address)
 {
+    LIST *temp = NULL;
+    temp = graph[address].fanin;
+
     if (graph[address].fault_value == 3)
     {
-        graph[address].fault_value = complementary(graph[graph[address].fanin[0].id].fault_value);
+        graph[address].fault_value = complementary(graph[temp->id].fault_value);
     }
 
-    graph[address].correct_value = complementary(graph[graph[address].fanin[0].id].correct_value);
+    graph[address].correct_value = complementary(graph[temp->id].correct_value);
 }
 
 /**
@@ -584,18 +587,21 @@ void map_xnor(NODE *graph, int address)
  */
 void map_buffer(NODE *graph, int address)
 {
+    LIST *temp = NULL;
+    temp = graph[address].fanin;
+
     if (graph[address].fault_value == 3)
     {
-        graph[address].fault_value = graph[graph[address].fanin[0].id].fault_value;
+        graph[address].fault_value = graph[temp->id].fault_value;
     }
 
-    graph[address].correct_value = graph[graph[address].fanin[0].id].correct_value;
+    graph[address].correct_value = graph[temp->id].correct_value;
 }
 
 /**
  * @brief This is a mapper function for the FROM module.
  *        The architecture of this module follows the propagation
- *        table protocol located at the `docs`directory. This
+ *        table protocol located at the `docs` directory. This
  *        table supports a three value logic. The FROM module is
  *        another version of the BUFFER. However, it actually
  *        covers the connections and is replacing the wiring.
@@ -607,10 +613,13 @@ void map_buffer(NODE *graph, int address)
  */
 void map_from(NODE *graph, int address)
 {
+    LIST *temp = NULL;
+    temp = graph[address].fanin;
+
     if (graph[address].fault_value == 3)
     {
-        graph[address].fault_value = graph[graph[address].fanin[0].id].fault_value;
+        graph[address].fault_value = graph[temp->id].fault_value;
     }
 
-    graph[address].correct_value = graph[graph[address].fanin[0].id].correct_value;
+    graph[address].correct_value = graph[temp->id].correct_value;
 }

@@ -7,6 +7,8 @@
  * @param argc number of terminal arguments/options
  * @param argv the string argument vector
  * @return int the execution status as per OS protocol
+ *
+ * @version 3.0.0
  */
 int main(int argc, char *argv[])
 {

@@ -11,17 +11,49 @@
  */
 int read_faults_file(FILE *faults_file, FAULT *faults)
 {
-    int num_of_faults = 0;
-    char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
+    int char_counter, num_of_faults, num_of_characters_in_fault_file, max_num_of_node_address_digits, tmp_mul;
+    char *line, *node_address;
+
+    tmp_mul = 10;
+    num_of_faults = 0;
+    max_num_of_node_address_digits = 0;
+
+    while(MAX_NUM_OF_NODES / tmp_mul > 1)
+    {
+        max_num_of_node_address_digits += 1;
+        tmp_mul = pow(tmp_mul, max_num_of_node_address_digits);
+    }
+
+    // inject some redundancy in case of extra whitespaces and other unwanted characters
+    // 2 extra characters are the `/` and a possible extra space between the `/` character and the
+    // fault value and the rest 5 characters are the redundancy
+    num_of_characters_in_fault_file = max_num_of_node_address_digits + 2 + 5;
+
+    line = (char*) malloc(num_of_characters_in_fault_file * sizeof (char));
+    node_address = (char*) malloc(num_of_characters_in_fault_file * sizeof (char));
 
     while( !feof(faults_file) )
     {
+        bzero(line, num_of_characters_in_fault_file);
+        bzero(node_address, num_of_characters_in_fault_file);
+
         fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, faults_file);
 
-        if (strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\n") != 0 && strcmp(line, "\0") != 0)
+        if (strlen(line) > 0)
         {
-            sscanf(line, "%d/%d", &faults[num_of_faults].address, &faults[num_of_faults].fault);
-            bzero(line, strlen(line));
+            for (char_counter = 0; line[char_counter] != '/'; char_counter += 1)
+            {
+                node_address[char_counter] = line[char_counter];
+            }
+
+            while(line[char_counter] == '/' or line[char_counter] == ' ')
+            {
+                char_counter += 1;
+            }
+
+            faults[num_of_faults].address = atoi(node_address);
+            faults[num_of_faults].fault = line[char_counter] - '0';
+
             num_of_faults += 1;
         }
     }

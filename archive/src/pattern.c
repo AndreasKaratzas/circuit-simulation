@@ -43,14 +43,14 @@ void map_pattern(char *pattern_str, int *pattern_int, int num_of_vec_elements)
 int read_vec_file(FILE *vec_file, PATTERN *vectors)
 {
     int num_of_patterns = 0;
-    char line[MAX_NUM_OF_CHARACTERS_IN_LINE];
-    char raw_vector[MAX_NUM_OF_PRIMARY_INPUTS];
+    char line[MAX_NUM_OF_PRIMARY_INPUTS + 1];
+    char raw_vector[MAX_NUM_OF_PRIMARY_INPUTS + 1];
 
     while( !feof(vec_file) )
     {
-        fgets(line, MAX_NUM_OF_CHARACTERS_IN_LINE, vec_file);
+        fgets(line, MAX_NUM_OF_PRIMARY_INPUTS + 1, vec_file);
 
-        if (strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\n") != 0 && strcmp(line, "\0") != 0)
+        if (strlen(line) > 0)
         {
             sscanf(line, "%s", raw_vector);
             vectors[num_of_patterns].num_of_primary_inputs = strlen(raw_vector);

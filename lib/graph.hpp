@@ -79,7 +79,7 @@ typedef struct LOGGER_type
     int fault_address;
     int fault_value;
     char *faulty_output;
-    char fault_detected[4];
+    char fault_detected[20];
 } LOGGER;
 
 void insert_element(LIST **, int);

@@ -74,11 +74,11 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
 
     if (fault_detected > 0)
     {
-        sprintf(logs[log_idx].fault_detected, "YES");
+        sprintf(logs[log_idx].fault_detected, "Fault detected");
     }
     else
     {
-        sprintf(logs[log_idx].fault_detected, "NO");
+        sprintf(logs[log_idx].fault_detected, "Fault NOT detected");
     }
 
     if (verbose == 1)
@@ -175,7 +175,7 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "******************************************************************");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* @Version - 2.2.9                                                ");
+    fprintf(out_file, "* @Version - 3.0.0                                                ");
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
@@ -187,7 +187,11 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*       contact: andreas.karatzas@siu.edu                         ");
+    fprintf(out_file, "*                                                                 ");
+    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "\n");
+
+    fprintf(out_file, "* @Contact - andreas.karatzas@siu.edu                             ");
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
@@ -203,23 +207,15 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* Project:                                                        ");
-    fprintf(out_file, "                                                                 *");
-    fprintf(out_file, "\n");
-
-    fprintf(out_file, "*       This was implemented for course ECE 520 - VLSI Design & Te");
-    fprintf(out_file, "st Automation                                                    *");
+    fprintf(out_file, "* @Abstract - This was implemented for course ECE 520 - VLSI Desig");
+    fprintf(out_file, "n & Test Automation                                              *");
     fprintf(out_file, "\n");
 
     fprintf(out_file, "*                                                                 ");
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* Semester:                                                       ");
-    fprintf(out_file, "                                                                 *");
-    fprintf(out_file, "\n");
-
-    fprintf(out_file, "*       Spring 2022                                               ");
+    fprintf(out_file, "* @Semester - Spring 2022                                         ");
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
@@ -246,64 +242,67 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*                                                                 ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*+----------------------------------------------------------------");
+    fprintf(out_file, "----------------------------------------------------------------+*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* <first fault node address> / <first fault value>:               ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*|<first fault node address> / <first fault value>:               ");
+    fprintf(out_file, "                                                                |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*       0. <first test pattern> <correct value line> <faulty value");
-    fprintf(out_file, " line> (<YES/NO indicating if false value was detected or not>)  *");
+    fprintf(out_file, "*|      0. <first test pattern> <correct value line> <faulty value");
+    fprintf(out_file, " line> (<YES/NO indicating if false value was detected or not>) |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*       1. <second test pattern> <correct value line> <faulty valu");
-    fprintf(out_file, "e line> (<YES/NO indicating if false value was detected or not>) *");
+    fprintf(out_file, "*|      1. <second test pattern> <correct value line> <faulty valu");
+    fprintf(out_file, "e line> (<YES/NO indicating if false value was detected or not>)|*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*        .                                                        ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*|       .                                                        ");
+    fprintf(out_file, "                                                                |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*        .                                                        ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*|       .                                                        ");
+    fprintf(out_file, "                                                                |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*        .                                                        ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*|       .                                                        ");
+    fprintf(out_file, "                                                                |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* <second fault node address> / <second fault value>:             ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*|<second fault node address> / <second fault value>:             ");
+    fprintf(out_file, "                                                                |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*       0. <first test pattern> <correct value line> <faulty value");
-    fprintf(out_file, " line> (<YES/NO indicating if false value was detected or not>)  *");
+    fprintf(out_file, "*|      0. <first test pattern> <correct value line> <faulty value");
+    fprintf(out_file, " line> (<YES/NO indicating if false value was detected or not>) |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*       1. <second test pattern> <correct value line> <faulty valu");
-    fprintf(out_file, "e line> (<YES/NO indicating if false value was detected or not>) *");
+    fprintf(out_file, "*|      1. <second test pattern> <correct value line> <faulty valu");
+    fprintf(out_file, "e line> (<YES/NO indicating if false value was detected or not>)|*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*        .                                                        ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*|       .                                                        ");
+    fprintf(out_file, "                                                                |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*        .                                                        ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*|       .                                                        ");
+    fprintf(out_file, "                                                                |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*        .                                                        ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*|       .                                                        ");
+    fprintf(out_file, "                                                                |*");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "*                                                                 ");
-    fprintf(out_file, "                                                                 *");
+    fprintf(out_file, "*+----------------------------------------------------------------");
+    fprintf(out_file, "----------------------------------------------------------------+*");
     fprintf(out_file, "\n");
 
     fprintf(out_file, "******************************************************************");
     fprintf(out_file, "******************************************************************");
+    fprintf(out_file, "\n");
+
+    fprintf(out_file, "\n");
     fprintf(out_file, "\n");
 }
 
@@ -335,6 +334,7 @@ void get_benchmark_name(char *benchmark, const char *sample_option)
         char_counter += 1;
     }
 
+    checkpoint += 1;
     offset = checkpoint;
 
     while (checkpoint < char_counter)

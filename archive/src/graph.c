@@ -132,6 +132,12 @@ int read_isc_file(FILE *isc_file, NODE *graph, int *node_dictionary)
         initialize_circuit(graph, node_count);
     }
 
+    // initialize the node dictionary
+    for (node_count = 0; node_count < MAX_NUM_OF_NODES; node_count += 1)
+    {
+        node_dictionary[node_count] = -1;
+    }
+
     // reset node count
     node_count = 0;
 
