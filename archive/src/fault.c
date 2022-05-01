@@ -46,7 +46,7 @@ int read_faults_file(FILE *faults_file, FAULT *faults)
                 node_address[char_counter] = line[char_counter];
             }
 
-            while(line[char_counter] == '/' or line[char_counter] == ' ')
+            while(line[char_counter] == '/' || line[char_counter] == ' ')
             {
                 char_counter += 1;
             }
