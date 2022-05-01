@@ -5,7 +5,7 @@ INC		= lib
 TARGET          = project
 
 $(TARGET): $(SRC)
-	gcc $(SRC) -I $(INC) -o $@
+	gcc $(SRC) -I $(INC) -o $@ -lm
 
 clean:
 	rm -f *.o *~ $(TARGET)
