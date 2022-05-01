@@ -1,67 +1,68 @@
 ************************************************************************************************************************************
-* @Version - 2.2.9                                                                                                                 *
+* @Version - 3.1.1                                                                                                                 *
 *                                                                                                                                  *
 * @Copyright - Andreas Karatzas                                                                                                    *
-*       contact: andreas.karatzas@siu.edu                                                                                          *
+*                                                                                                                                  *
+* @Contact - andreas.karatzas@siu.edu                                                                                              *
 *                                                                                                                                  *
 * @Github - https://github.com/AndreasKaratzas/circuit_simulation.git                                                              *
 *                                                                                                                                  *
-* Project:                                                                                                                         *
-*       This was implemented for course ECE 520 - VLSI Design & Test Automation                                                    *
+* @Abstract - This was implemented for course ECE 520 - VLSI Design & Test Automation                                              *
 *                                                                                                                                  *
-* Semester:                                                                                                                        *
-*       Spring 2022                                                                                                                *
+* @Semester - Spring 2022                                                                                                          *
 *                                                                                                                                  *
 *                                                                                                                                  *
-* This is the results file for the ISCAS '85 Benchmark `/c17`. It                                                                  *
+* This is the results file for the ISCAS '85 Benchmark `c17`. It                                                                   *
 * follows a similar pattern with that of Atalanta tool. Example:                                                                   *
-*                                                                                                                                  *
-* <first fault node address> / <first fault value>:                                                                                *
-*       0. <first test pattern> <correct value line> <faulty value line> (<YES/NO indicating if false value was detected or not>)  *
-*       1. <second test pattern> <correct value line> <faulty value line> (<YES/NO indicating if false value was detected or not>) *
-*        .                                                                                                                         *
-*        .                                                                                                                         *
-*        .                                                                                                                         *
-* <second fault node address> / <second fault value>:                                                                              *
-*       0. <first test pattern> <correct value line> <faulty value line> (<YES/NO indicating if false value was detected or not>)  *
-*       1. <second test pattern> <correct value line> <faulty value line> (<YES/NO indicating if false value was detected or not>) *
-*        .                                                                                                                         *
-*        .                                                                                                                         *
-*        .                                                                                                                         *
-*                                                                                                                                  *
+*+--------------------------------------------------------------------------------------------------------------------------------+*
+*|<first fault node address> / <first fault value>:                                                                               |*
+*|      0. <first test pattern> <correct value line> <faulty value line> (<Fault detected/Fault NOT detected>)                    |*
+*|      1. <second test pattern> <correct value line> <faulty value line> (<Fault detected/Fault NOT detected>)                   |*
+*|       .                                                                                                                        |*
+*|       .                                                                                                                        |*
+*|       .                                                                                                                        |*
+*|<second fault node address> / <second fault value>:                                                                             |*
+*|      0. <first test pattern> <correct value line> <faulty value line> (<Fault detected/Fault NOT detected>)                    |*
+*|      1. <second test pattern> <correct value line> <faulty value line> (<Fault detected/Fault NOT detected>)                   |*
+*|       .                                                                                                                        |*
+*|       .                                                                                                                        |*
+*|       .                                                                                                                        |*
+*+--------------------------------------------------------------------------------------------------------------------------------+*
 ************************************************************************************************************************************
+
+
 2/1:
-	0: 00022 02 11 (YES)
-	1: 21022 11 11 (NO)
-	2: 12122 12 12 (NO)
-	3: 11001 11 11 (NO)
-	4: 00111 00 00 (NO)
-	5: 11111 10 10 (NO)
+	0: 00022 02 11 (Fault detected)
+	1: 21022 11 11 (Fault NOT detected)
+	2: 12122 12 12 (Fault NOT detected)
+	3: 11001 11 11 (Fault NOT detected)
+	4: 00111 00 00 (Fault NOT detected)
+	5: 11111 10 10 (Fault NOT detected)
 11/0:
-	0: 00022 02 00 (NO)
-	1: 21022 11 00 (YES)
-	2: 12122 12 10 (NO)
-	3: 11001 11 00 (YES)
-	4: 00111 00 00 (NO)
-	5: 11111 10 10 (NO)
+	0: 00022 02 00 (Fault NOT detected)
+	1: 21022 11 00 (Fault detected)
+	2: 12122 12 10 (Fault NOT detected)
+	3: 11001 11 00 (Fault detected)
+	4: 00111 00 00 (Fault NOT detected)
+	5: 11111 10 10 (Fault NOT detected)
 22/0:
-	0: 00022 02 02 (NO)
-	1: 21022 11 01 (YES)
-	2: 12122 12 02 (YES)
-	3: 11001 11 01 (YES)
-	4: 00111 00 00 (NO)
-	5: 11111 10 00 (YES)
+	0: 00022 02 02 (Fault NOT detected)
+	1: 21022 11 01 (Fault detected)
+	2: 12122 12 02 (Fault detected)
+	3: 11001 11 01 (Fault detected)
+	4: 00111 00 00 (Fault NOT detected)
+	5: 11111 10 00 (Fault detected)
 16/1:
-	0: 00022 02 02 (NO)
-	1: 21022 11 02 (YES)
-	2: 12122 12 12 (NO)
-	3: 11001 11 01 (YES)
-	4: 00111 00 00 (NO)
-	5: 11111 10 10 (NO)
+	0: 00022 02 02 (Fault NOT detected)
+	1: 21022 11 02 (Fault detected)
+	2: 12122 12 12 (Fault NOT detected)
+	3: 11001 11 01 (Fault detected)
+	4: 00111 00 00 (Fault NOT detected)
+	5: 11111 10 10 (Fault NOT detected)
 6/1:
-	0: 00022 02 02 (NO)
-	1: 21022 11 11 (NO)
-	2: 12122 12 10 (NO)
-	3: 11001 11 11 (NO)
-	4: 00111 00 00 (NO)
-	5: 11111 10 10 (NO)
+	0: 00022 02 02 (Fault NOT detected)
+	1: 21022 11 11 (Fault NOT detected)
+	2: 12122 12 10 (Fault NOT detected)
+	3: 11001 11 11 (Fault NOT detected)
+	4: 00111 00 00 (Fault NOT detected)
+	5: 11111 10 10 (Fault NOT detected)
