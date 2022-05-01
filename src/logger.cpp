@@ -175,7 +175,7 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "******************************************************************");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* @Version - 2.2.7                                                ");
+    fprintf(out_file, "* @Version - 2.2.8                                                ");
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 
