@@ -45,6 +45,17 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
 
             correct_val_array[primary_output_counter][0] = graph[address].correct_value + '0';
             fault_val_array[primary_output_counter][0] = graph[address].fault_value + '0';
+
+            if (correct_val_array[primary_output_counter][0] == '2')
+            {
+                correct_val_array[primary_output_counter][0] = 'x';
+            }
+
+            if (fault_val_array[primary_output_counter][0] == '2')
+            {
+                fault_val_array[primary_output_counter][0] = 'x';
+            }
+
             primary_output_counter += 1;
         }
     }
@@ -54,6 +65,11 @@ void register_simulation(NODE *graph, int num_of_nodes, PATTERN *vectors, int pa
         bzero(pattern_string[primary_input_counter], 2);
 
         pattern_string[primary_input_counter][0] = vectors[pattern_idx].primary_input_vec[primary_input_counter] + '0';
+
+        if (pattern_string[primary_input_counter][0] == '2')
+        {
+            pattern_string[primary_input_counter][0] = 'x';
+        }
     }
 
     logs[log_idx].input_vector = (char*) malloc((primary_input_counter + 1) * sizeof(char));
@@ -175,7 +191,7 @@ void log_description(FILE *out_file, char *benchmark)
     fprintf(out_file, "******************************************************************");
     fprintf(out_file, "\n");
 
-    fprintf(out_file, "* @Version - 3.1.1                                                ");
+    fprintf(out_file, "* @Version - 3.1.2                                                ");
     fprintf(out_file, "                                                                 *");
     fprintf(out_file, "\n");
 

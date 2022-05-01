@@ -8,7 +8,7 @@
  * @param argv the string argument vector
  * @return int the execution status as per OS protocol
  *
- * @version 3.1.1
+ * @version 3.1.2
  *
  * @test To execute the target file use:
  *      $> ./project data/input/c17.isc data/input/c17.vec data/input/c17.faults data/output/c17.results
