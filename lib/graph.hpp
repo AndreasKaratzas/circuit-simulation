@@ -90,7 +90,7 @@ void initialize_circuit(NODE *, int);
 int map_logic_gate(char *);
 void print_circuit(NODE *, int);
 void delete_circuit(NODE *, int);
-int read_vec_file_bak(FILE *, PATTERN *);
+int read_vec_file_bak(FILE *, PATTERN_bak *);
 
 void unknown_handler(int);
 void from_handler(NODE *, char *, int);
