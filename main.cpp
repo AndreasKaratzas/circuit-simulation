@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     out_file = fopen(argv[4], "ab+");
     get_benchmark_name(benchmark, argv[1]);
-    log_simulation(out_file, logs, num_of_patterns * num_of_faults, num_of_patterns, node_dictionary);
+    log_simulation(out_file, logs, num_of_patterns * num_of_faults, num_of_patterns, node_dictionary, benchmark);
     fclose(out_file);
 
     if (verbose == 1)
