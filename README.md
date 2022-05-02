@@ -89,14 +89,6 @@ The node with address `16`, named `16gat`, is type `NAND`, has a fanout of 2 and
 
 More information on the ISCAS '85 benchmark can be found [here](https://davidkebo.com/documents/iscas85.pdf).
 
-## TODO
+### Note
 
-- [x] split logic functions into _fault_ and _correct_
-- [x] update docstrings in `logic.cpp` with respect to the changes described above
-- [x] update the function list inside `graph.hpp`
-- [x] implement the two `logger.cpp` functions
-- [x] spaces between all flow control routines
-- [x] ask about the unknown command line argument
-- [x] trim all whitespace from all files
-- [x] ask about the project deadline extension
-- [x] "typecast" the whole project from C++ to C
+This project was developed during my VLSI Design & Test Automation course in Spring 2022, at [SIU](https://siu.edu/). This course was a part of my Master at [ECBE](https://engineering.siu.edu/elec/).
