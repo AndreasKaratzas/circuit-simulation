@@ -87,7 +87,7 @@ The last kind of lines is the _fanout_ branch line. Fanout branch lines are simi
 
 The node with address `16`, named `16gat`, is type `NAND`, has a fanout of 2 and a fanin of 2. Immediately following the node line is the _fanin_ line which lists node addresses `2` and `14` as the inputs: a _primary input_ and a _fanout branch_ of a `NAND` gate. Following the fanin line are the 2 _fanout branch_ lines; one for each fanout. The netlist then continues with the next node.
 
-More information on the ISCAS '85 benchmark can be found [here](https://davidkebo.com/documents/iscas85.pdf).
+More information on the ISCAS '85 benchmark can be found [here](docs/iscas85.pdf).
 
 ### Note
 
